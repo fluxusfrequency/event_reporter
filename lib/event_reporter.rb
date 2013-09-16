@@ -1,3 +1,0 @@
-class EventReporter
-
-end

@@ -36,9 +36,9 @@ class PrintingTest < MiniTest::Test
    assert_equal '', reporter.queue_print
  end
 
-  def test_responds_to_queue_print_by_attribute
+  def test_responds_to_queue_print_by_last_name
     skip
-    assert_equal '', reporter.queue_print(attribute)
+    assert_equal '', reporter.queue_print(last_name)
     assert_equal 16, reporter.queue_count
   end
 
