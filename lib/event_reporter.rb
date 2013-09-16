@@ -28,7 +28,7 @@ class EventReporter
       input = gets.chomp
       parts = input.split
       command = parts[0]
-      extension = parts[1..-1].join
+      extension = parts[1..-1].join(" ")
       case command
         when "load" then @loader.load_file(extension)
         when "help" then @helper.show_help(extension)
