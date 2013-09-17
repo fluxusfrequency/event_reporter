@@ -33,8 +33,9 @@ class PrintingTest < MiniTest::Test
   end
 
   def test_responds_to_queue_print_by_last_name
+    skip
     assert_equal "successfully printed by last name", reporter.parse_input("queue print by last_name")
-    #assert_equal 16, reporter.queue_count
+    assert_equal 16, reporter.queue_count
   end
 
 end

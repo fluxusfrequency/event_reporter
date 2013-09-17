@@ -11,19 +11,26 @@
 ###################
 
 require 'csv'
+require_relative 'finder.rb'
+require_relative 'helper.rb'
+require_relative 'loader.rb'
+require_relative 'queuer.rb'
 
 class EventReporter
   def initialize
+    @command = ""
     @parts = []
     @queue = []
     @contents = []
   end
 
   def run
-    puts "Welcome to Event Reporter. Event Reporter helps analyze data in csv files that contain contact
-    information such as names, addresses, and phone numbers. For more information, please type help."
-    command = ""
-    while command != "quit"
+    puts "
+    Welcome to Event Reporter. Event Reporter helps analyze data in csv files that contain contact
+    information such as names, addresses, and phone numbers. For more information, please type help.
+    "
+
+    while @command != "quit"
       printf "\n Enter command: "
       input = gets.chomp
       parse_input(input)
@@ -37,12 +44,12 @@ class EventReporter
   def parse_input(input)
     clean_input(input)
     @parts = input.split
-    command = @parts[0]
+    @command = @parts[0]
     @extension = @parts[1]
     @subcommand = @parts[2]
     @find_criteria = @parts[2..-1]
     @mcguffin = @parts[3..-1]
-    parse_command(command)
+    parse_command(@command)
   end
 
   def parse_command(command)
@@ -69,13 +76,17 @@ class EventReporter
   def load_file(filename)
     @contents = []
     @contents = CSV.open(filename, headers: true, header_converters: :symbol)
+    puts "\n Successfully loaded #{filename}.\n"
     return "Successfully loaded #{filename}."
   end
 
   def queue_parse
     case @extension
-      when "count" then queue_count
-      when "clear" then queue_clear
+      when "count"
+       puts "\nThe queue currently has #{queue_count} items in it."
+      when "clear"
+        queue_clear
+        puts "\n The queue was cleared."
       when "print"
         if @subcommand == "by"
           queue_print_by_mcguffin
@@ -96,17 +107,19 @@ class EventReporter
 
   def queue_print
     @queue.each do |item|
-      puts "#{item[:first_name]}"
+      puts "#{item}"
     end
+    puts @queue
+    puts "\nSuccessfully printed queue."
     return "successfully printed queue"
   end
 
   def queue_print_by_mcguffin
-    find_by_column(@mcguffin)
+    #@queue.sort!
     @queue.each do |item|
-      puts "#{item[@print_by_criteria.to_sym]}"
+      puts "#{item}"
     end
-    @queue.sort {|x,y| x <=> y }
+    puts "\nSuccessfully printed queue by last name."
     return "successfully printed by last name"
   end
 
@@ -140,11 +153,13 @@ class EventReporter
     if @extension
       if @find_criteria
         find_by_criteria(@extension.to_sym, @find_criteria.join(" ").to_s)
+        puts "\nSuccessfully found all of the #{@extension.to_sym}s matching #{@find_criteria.join(" ").to_s}."
       else
         find_by_column(@extension.to_sym)
+        "\nSuccessfully found all of the #{@extension.to_sym}s."
       end
     else
-      puts "Please enter a column and optional criteria to find by. Type 'help find' for help."
+      puts "\nPlease enter a column and optional criteria to find by. Type 'help find' for help."
     end
   end
 
@@ -174,12 +189,12 @@ class EventReporter
   end
 
   def help_for_load
-    puts "*** Load Help ***\n\n"
+    puts "\n*** Load Help ***\n\n"
     puts "load <filename.csv>: loads the specified file into EventReporter.\n"
   end
 
   def help_for_find
-    puts "*** Find Help ***\n\n"
+    puts "\nq*** Find Help ***\n\n"
     puts "find <column> <criteria>: searches the loaded csv file for all rows matching the given column and adds them to the queue if they match the criteria.\n"
     puts "Typical column names found in csv files include first_name, last_name, phone_number, email_address, city, and state."
   end
@@ -204,7 +219,7 @@ class EventReporter
         puts
         puts help_queue_messages[:save]
       else
-        puts "*** Queue Help ***\n\n"
+        puts "\n*** Queue Help ***\n\n"
         help_queue_messages.values.each do |message|
           puts "    #{message}\n"
         end
@@ -213,7 +228,7 @@ class EventReporter
 
   def help_summary
     help_messages = { :load => "load <filename.csv>: loads the specified file into EventReporter", :find => "find <column> <criteria>: searches the loaded csv file for all rows matching the given column and adds them to the queue if they match the criteria", :queue => "queue <subcommand>: accesses and manipulates the queue of found data"}
-    puts "*** EventReporter Help ***\n\n"
+    puts "\n*** EventReporter Help ***\n\n"
     puts "
     Event Reporter helps analyze data in csv files that contain contact
     information such as names, addresses, and phone numbers. To get started,
