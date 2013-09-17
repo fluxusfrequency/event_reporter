@@ -14,12 +14,16 @@ class HappyPathTest < MiniTest::Test
     assert_equal 'Successfully loaded event_attendees.csv.', reporter.parse_input("load event_attendees.csv")
   end
 
+  def test_responds_to_load_filename_nil_with_a_default_file
+    assert_equal 'Successfully loaded event_attendees.csv.', reporter.parse_input("load")
+  end
+
   def test_queue_count_defaults_to_zero
     assert_equal 0, reporter.queue_count
   end
 
   def test_responds_to_find_by_first_name
-    reporter.find_by(:first_name, "John")
+    reporter.parse_input("find first_name John")
     assert_equal 63, reporter.queue_count
   end
 

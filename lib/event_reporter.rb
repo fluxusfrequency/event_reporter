@@ -46,7 +46,11 @@ class EventReporter
 
   def parse_command(command)
     case command
-      when "load" then load_file(@extension.to_s)
+      when "load"
+        if @extension.nil?
+          @extension = "event_attendees.csv"
+        end
+        load_file(@extension.to_s)
       when "help" then help_parse
       when "queue" then queue_parse
       when "find" then find_parse
@@ -62,24 +66,9 @@ class EventReporter
   end
 
   def load_file(filename)
+    @contents = []
     @contents = CSV.open(filename, headers: true, header_converters: :symbol)
     return "Successfully loaded #{filename}."
-  end
-
-  def inspect_file(contents)
-    @contents.each do |row|
-      id = row[0]
-      reg_date = row[:regdate]
-      first_name = row[:first_name]
-      last_name = row[:last_name]
-      email_address = row[:email_address]
-      phone_number = row[:homephone]
-      street = row[:street]
-      city = row[:city]
-      state = row[:state]
-      zipcode = row[:zipcode]
-      add_to_queue
-    end
   end
 
   def queue_parse
@@ -95,8 +84,12 @@ class EventReporter
   end
 
   def find_parse
-    if !@extension.nil?
-      find_by(@extension, @criteria)
+    if @extension
+      if @criteria
+        find_by(@extension.to_sym, @criteria.join(" ").to_s)
+      else
+        puts "Please enter a column and criteria to find by. Type 'help find' for help."
+      end
     end
   end
 
