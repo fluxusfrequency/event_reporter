@@ -1,7 +1,13 @@
 class Queuer
   def initialize
+    @queue = []
   end
 
-  def access_queue(access_type)
+  def count
+    @queue.length
+  end
+
+  def clear
+    @queue = []
   end
 end

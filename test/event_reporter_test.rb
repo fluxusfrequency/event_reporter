@@ -1,3 +1,4 @@
+=begin
 require 'minitest'
 require 'minitest/autorun'
 require_relative '../lib/event_reporter.rb'
@@ -16,3 +17,4 @@ end
 #assert_inlcudes
 #assert_nil
 #assert_raises
+=end

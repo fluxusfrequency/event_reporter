@@ -1,3 +1,4 @@
+=begin
 require 'minitest'
 require 'minitest/autorun'
 require_relative '../lib/event_reporter.rb'
@@ -44,3 +45,4 @@ class PrintingTest < MiniTest::Test
 
 
 end
+=end
