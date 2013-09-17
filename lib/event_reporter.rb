@@ -26,25 +26,27 @@ class EventReporter
     while command != "quit"
       printf "\n Enter command: "
       input = gets.chomp
-      clean_input(input)
+      parse_input(input)
     end
   end
 
   def clean_input(input)
-    @parts = input.downcase.split
-    parse_input(@parts)
+    input = input.downcase
   end
 
   def parse_input(input)
+    clean_input(input)
+    @parts = input.split
     command = @parts[0]
     @extension = @parts[1]
+    @subcommand = @parts[2]
     @criteria = @parts[2..-1]
     parse_command(command)
   end
 
   def parse_command(command)
     case command
-      when "load" then load_file(@criteria.to_s)
+      when "load" then load_file(@extension.to_s)
       when "help" then help_parse
       when "queue" then queue_parse
       when "find" then find_parse
@@ -81,7 +83,7 @@ class EventReporter
   end
 
   def queue_parse
-    case @extension
+    case @subcommand
       when "count" then queue_count
       when "clear" then queue_clear
       else command_error
@@ -134,7 +136,7 @@ class EventReporter
 
   def help_parse
     case @extension
-      when "queue" then help_for_queue(@criteria)
+      when "queue" then help_for_queue(@subcommand)
       when "find" then help_for_find
       when "load" then help_for_load
       else help_summary
@@ -153,17 +155,21 @@ class EventReporter
   end
 
 
-  def help_for_queue(command = "default")
+  def help_for_queue(subcommand = "none")
     help_queue_messages = { :count => "queue count: Reports the number of records that matched the last search.", :clear => "queue clear: Clears the search result queue.", :print => "queue print: Prints a table showing the data in the result queue.", :print_by => "queue print by <column>: Prints a table sorted by the specified column name.", :save => "queue save to <filename.csv>: Exports the current queue to the specified filename."}
-    case command
+    case subcommand
       when "count"
         puts help_queue_messages[:count]
+        return "responded to help queue count"
       when "clear"
         puts puts help_queue_messages[:clear]
-      when "print" && (!@parts[2] == "by")
-        puts help_queue_messages[:print]
-      when "print" && (@parts[2] == "by")
-        puts puts help_queue_messages[:print_by]
+      when "print"
+        if @parts[3] == "by"
+          puts help_queue_messages[:print_by]
+        else
+          puts help_queue_messages[:print]
+        end
+        return "responded to help queue print"
       when "save"
         puts
         puts help_queue_messages[:save]

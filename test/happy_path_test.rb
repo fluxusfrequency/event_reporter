@@ -11,7 +11,7 @@ class HappyPathTest < MiniTest::Test
   end
 
   def test_responds_to_load_filename
-    assert_equal 'Successfully loaded event_attendees.csv.', reporter.load_file('event_attendees.csv')
+    assert_equal 'Successfully loaded event_attendees.csv.', reporter.parse_input("load event_attendees.csv")
   end
 
   def test_queue_count_defaults_to_zero
@@ -33,12 +33,11 @@ class HappyPathTest < MiniTest::Test
   end
 
   def test_responds_to_help_queue_count_command
-    assert_equal '', reporter.parse_input("help queue count")
+    assert_equal "responded to help queue count", reporter.parse_input("help queue count")
   end
 
   def test_responds_to_help_queue_print_command
-    skip
-    assert_equal '', reporter.help(queue_print)
+    assert_equal "responded to help queue print", reporter.parse_input("help queue print")
   end
 
 end
