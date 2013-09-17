@@ -7,6 +7,7 @@ class HappyPathTest < MiniTest::Test
 
   def setup
     @reporter = EventReporter.new
+    reporter.load_file('event_attendees.csv')
   end
 
   def test_responds_to_load_filename
@@ -23,19 +24,16 @@ class HappyPathTest < MiniTest::Test
   end
 
   def test_responds_to_queue_clear
-    skip
     reporter.queue_clear
     assert_equal 0, reporter.queue_count
   end
 
   def test_responds_to_help
-    skip
-    assert_equal '', reporter.help
+    assert_equal "responded to help", reporter.parse_input("help")
   end
 
   def test_responds_to_help_queue_count_command
-    skip
-    assert_equal '', reporter.help(queue_count)
+    assert_equal '', reporter.parse_input("help queue count")
   end
 
   def test_responds_to_help_queue_print_command
