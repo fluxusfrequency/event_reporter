@@ -7,6 +7,7 @@ class PrintingTest < MiniTest::Test
 
   def setup
     @reporter = EventReporter.new
+    reporter.load_file('event_attendees.csv')
   end
 
   def test_responds_to_load_filename
@@ -18,26 +19,22 @@ class PrintingTest < MiniTest::Test
   end
 
   def test_responds_to_find_by_first_name
-    skip
-    reporter.parse_input(find first_name John)
+    reporter.parse_input("find first_name John")
     assert_equal 63, reporter.queue_count
   end
 
   def test_responds_to_find_by_another_first_name
-    skip
-    reporter.find("first_name", "Mary")
-    #???
+    reporter.parse_input("find first_name Mary")
+    assert_equal 16, reporter.queue_count
   end
 
   def test_responds_to_queue_print
-    skip
-    assert_equal '', reporter.queue_print
+    assert_equal "successfully printed queue", reporter.parse_input("queue print")
   end
 
   def test_responds_to_queue_print_by_last_name
-    skip
-    assert_equal '', reporter.queue_print(last_name)
-    assert_equal 16, reporter.queue_count
+    assert_equal "successfully printed by last name", reporter.parse_input("queue print by last_name")
+    #assert_equal 16, reporter.queue_count
   end
 
 end

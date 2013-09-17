@@ -40,7 +40,8 @@ class EventReporter
     command = @parts[0]
     @extension = @parts[1]
     @subcommand = @parts[2]
-    @criteria = @parts[2..-1]
+    @find_criteria = @parts[2..-1]
+    @mcguffin = @parts[3..-1]
     parse_command(command)
   end
 
@@ -72,9 +73,15 @@ class EventReporter
   end
 
   def queue_parse
-    case @subcommand
+    case @extension
       when "count" then queue_count
       when "clear" then queue_clear
+      when "print"
+        if @subcommand == "by"
+          queue_print_by_mcguffin
+        else
+          queue_print
+        end
       else command_error
     end
   end
@@ -83,25 +90,37 @@ class EventReporter
     @queue.length
   end
 
-  def find_parse
-    if @extension
-      if @criteria
-        find_by(@extension.to_sym, @criteria.join(" ").to_s)
-      else
-        puts "Please enter a column and criteria to find by. Type 'help find' for help."
-      end
+  def queue_clear
+    @queue = []
+  end
+
+  def queue_print
+    @queue.each do |item|
+      puts "#{item[:first_name]}"
+    end
+    return "successfully printed queue"
+  end
+
+  def queue_print_by_mcguffin
+    find_by_column(@mcguffin)
+    @queue.each do |item|
+      puts "#{item[@print_by_criteria.to_sym]}"
+    end
+    @queue.sort {|x,y| x <=> y }
+    return "successfully printed by last name"
+  end
+
+  def add_to_queue(column)
+    queue_clear
+    @contents.each do |row|
+      field_name = column.to_sym
+      matching_field = row[field_name].downcase
+      @queue << row
     end
   end
 
-  def find_by(column, criteria)
-    if @contents.nil?
-      puts "Couldn't find any data matching the type #{column}."
-      return
-    end
-    add_to_queue(column, criteria)
-  end
-
-  def add_to_queue(column, criteria)
+  def add_to_queue_with_criteria(column, criteria)
+    queue_clear
     @contents.each do |row|
       # What is the data in the column we are looking for?
       field_name = column.to_sym
@@ -110,21 +129,39 @@ class EventReporter
       # if the column with the name that matches the type specified
       # equals the criteria that I am looking for
       if matching_field == criteria.downcase
-        # then add this attendees data to the queue
-        @queue << row
-        #@queue.push Attendee.new(row)
+      # then add this attendees data to the queue
+      @queue << row
+      #@queue.push Attendee.new(row)
       end
     end
   end
 
-  def queue_clear
-    @queue = []
+  def find_parse
+    if @extension
+      if @find_criteria
+        find_by_criteria(@extension.to_sym, @find_criteria.join(" ").to_s)
+      else
+        find_by_column(@extension.to_sym)
+      end
+    else
+      puts "Please enter a column and optional criteria to find by. Type 'help find' for help."
+    end
   end
 
-  def print_queue
-    @queue.each do |item|
-      puts "#{item[:first_name]}"
-    end
+  def find_by_column(column)
+    #if column.nil?
+    #  puts "Couldn't find any data matching the type #{column}."
+    #  return
+    #end
+    add_to_queue(column)
+  end
+
+  def find_by_criteria(column, criteria)
+    #if @contents.nil?
+    #  puts "Couldn't find any data matching the type #{column} or the criteria #{criteria}."
+    #  return
+    #end
+    add_to_queue_with_criteria(column, criteria)
   end
 
   def help_parse
