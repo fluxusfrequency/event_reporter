@@ -11,6 +11,7 @@
 ###################
 
 require 'csv'
+require 'pry'
 require_relative 'attendee.rb'
 require_relative 'helper.rb'
 require_relative 'loader.rb'
@@ -110,7 +111,7 @@ class EventReporter
           end
           #@queue.push Attendee.new(row)
         end
-        puts "\nSuccessfully found all of the #{@parts[1].to_sym}s matching #{@parts[2..-1].join(" ").to_s}."
+        puts "\nSuccessfully found #{count} #{@parts[1].to_sym}(s) matching #{@parts[2..-1].join(" ").to_s}."
       end
     end
   end
