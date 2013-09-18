@@ -1,10 +1,4 @@
-require_relative './loader.rb'
-
 class Finder
-  def initialize
-    @loader = Loader.new
-  end
-
   def find_parse
     if @extension
       if @find_criteria

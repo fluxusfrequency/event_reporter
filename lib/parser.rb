@@ -22,10 +22,10 @@ class Parser
   def parse_command(command)
     case command
       when "load"
-        if @extension.nil?
-          @extension = "event_attendees.csv"
+        if @parts[1].nil?
+          @parts[1] = "event_attendees.csv"
         end
-        load_file(@extension.to_s)
+        load_file(@parts[1].to_s)
       when "help" then help_parse
       when "queue" then queue_parse
       when "find" then find_parse
