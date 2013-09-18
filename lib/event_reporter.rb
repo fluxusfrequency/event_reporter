@@ -100,10 +100,10 @@ class EventReporter
       puts "\nPlease enter a column and optional criteria to find by. Type 'help find' for help."
     else
       if @parts[2] != nil
-        finder.find_by_criteria(@parts[1].to_sym, @parts[2..-1].join(" ").to_s)
+        add_to_queue_with_criteria(@parts[1].to_sym, @parts[2..-1].join(" ").to_s)
         puts "\nSuccessfully found all of the #{@parts[1].to_sym}s matching #{@parts[2..-1].join(" ").to_s}."
       else
-        finder.find_by_column(@parts[1].to_sym)
+        add_to_queue(@parts[1].to_sym)
         "\nSuccessfully found all of the #{@parts[1].to_sym}s."
       end
     end
