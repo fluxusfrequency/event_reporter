@@ -11,4 +11,8 @@ class Loader
     return "successfully loaded #{filename}"
   end
 
+  def contents
+    @contents
+  end
+
 end

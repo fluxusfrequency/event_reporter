@@ -85,7 +85,7 @@ class EventReporter
       when "print"
         if @parts[2] == "by"
          finder.find_by_column(@parts[3])
-         print_by(@contents, @parts[3])
+         print_by(@loader.contents, @parts[3])
         else
           print
         end
@@ -98,18 +98,18 @@ class EventReporter
       puts "\nPlease enter a column and optional criteria to find by. Type 'help find' for help."
     else
       if @parts[2] != nil
-        @contents.each do |row|
+        @loader.contents.each do |row|
           # What is the data in the column we are looking for?
-          field_name = column.to_sym
+          field_name = @parts[1].to_sym
           matching_field = row[field_name].downcase
 
           # if the column with the name that matches the type specified
           # equals the criteria that I am looking for
-          if matching_field == criteria.downcase
+          if matching_field == @parts[2].downcase
           # then add this attendees data to the queue
-          @queue << row
-          #@queue.push Attendee.new(row)
+            @queue << row
           end
+          #@queue.push Attendee.new(row)
         end
         puts "\nSuccessfully found all of the #{@parts[1].to_sym}s matching #{@parts[2..-1].join(" ").to_s}."
       else
