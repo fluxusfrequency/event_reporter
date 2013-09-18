@@ -106,7 +106,7 @@ class EventReporter
           end
         end
       end
-      puts "\nSuccessfully found #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
+      puts "\nFound #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
     end
   end
 
@@ -132,8 +132,8 @@ class EventReporter
     @queue.each do |item|
       puts "#{item}"
     end
-    puts "\nSuccessfully printed queue."
-    return "successfully printed queue"
+    puts "\nSuccessfully printed #{count} queue items."
+    return "successfully printed #{count} queue items"
   end
 
   def print_by

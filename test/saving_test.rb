@@ -22,8 +22,8 @@ class SavingTest < MiniTest::Test
   end
 
   def test_responds_to_queue_print
-    reporter.parse_input("queue print")
-    # assert_equal 13, reporter.
+    reporter.parse_input("find city Salt Lake City")
+    assert_equal "successfully printed 13 queue items", reporter.parse_input("queue print")
   end
 
   def test_responds_to_queue_save_to_filename
