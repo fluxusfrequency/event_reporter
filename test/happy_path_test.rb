@@ -37,12 +37,10 @@ class HappyPathTest < MiniTest::Test
   end
 
   def test_responds_to_help_queue_count_command
-    skip
     assert_equal "responded to help queue count", reporter.parse_input("help queue count")
   end
 
   def test_responds_to_help_queue_print_command
-    skip
     assert_equal "responded to help queue print", reporter.parse_input("help queue print")
   end
 

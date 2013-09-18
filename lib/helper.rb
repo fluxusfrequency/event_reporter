@@ -30,11 +30,8 @@ class Helper
       when "clear"
         puts puts help_queue_messages[:clear]
       when "print"
-        if @parts[3] == "by"
-          puts help_queue_messages[:print_by]
-        else
-          puts help_queue_messages[:print]
-        end
+        puts help_queue_messages[:print]
+        puts help_queue_messages[:print_by]
         return "responded to help queue print"
       when "save"
         puts
