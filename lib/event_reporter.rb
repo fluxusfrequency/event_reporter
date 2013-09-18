@@ -18,6 +18,7 @@ require_relative 'queuer.rb'
 
 class EventReporter
   attr_accessor :finder, :helper, :loader, :queuer
+
   def initialize
     @finder = Finder.new
     @helper = Helper.new
@@ -58,11 +59,7 @@ class EventReporter
 
   def parse_command(command)
     case command
-      when "load"
-        if @parts[1].nil?
-          @parts[1] = "event_attendees.csv"
-        end
-        load_file(@parts[1].to_s)
+      when "load" then load
       when "queue" then queue
       when "find" then find
       when "help" then help
@@ -78,20 +75,25 @@ class EventReporter
   end
 
   def load
+    if @parts[1].nil?
+      @parts[1] = "event_attendees.csv"
+    end
+    loader.load_file(@parts[1].to_s)
   end
 
   def queue
     case @parts[1]
       when "count"
-       puts "\nThe queue currently has #{queue_count} items in it."
+        current_count = queuer.queue_count
+        puts "\nThe queue currently has #{current_count} items in it."
       when "clear"
-        queue_clear
+        queuer.queue_clear
         puts "\n The queue was cleared."
       when "print"
         if @parts[2] == "by"
-          queue_print_by(@parts[3])
+          queuer.queue_print_by(@parts[3])
         else
-          queue_print
+          queuer.queue_print
         end
       else command_error
     end
@@ -99,7 +101,7 @@ class EventReporter
 
   def find
     if @parts[1] == nil
-        puts "\nPlease enter a column and optional criteria to find by. Type 'help find' for help."
+      puts "\nPlease enter a column and optional criteria to find by. Type 'help find' for help."
     else
       if @find_criteria
         find_by_criteria(@parts[1].to_sym, @parts[2..-1].join(" ").to_s)
@@ -109,6 +111,7 @@ class EventReporter
         "\nSuccessfully found all of the #{@parts[1].to_sym}s."
       end
     end
+  end
 
   def help
     case @parts[1]
@@ -117,9 +120,6 @@ class EventReporter
       when "load" then help_for_load
       else help_summary
     end
-  end
-
-
   end
 
 end

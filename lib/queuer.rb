@@ -3,23 +3,6 @@ class Queuer
     @queue = []
   end
 
-  def queue_parse
-    case @parts[1]
-      when "count"
-       puts "\nThe queue currently has #{queue_count} items in it."
-      when "clear"
-        queue_clear
-        puts "\n The queue was cleared."
-      when "print"
-        if @parts[2] == "by"
-          queue_print_by(@parts[3])
-        else
-          queue_print
-        end
-      else command_error
-    end
-  end
-
   def queue_count
     @queue.length
   end
