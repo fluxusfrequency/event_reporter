@@ -17,8 +17,4 @@ class Attendee
     @zipcode = Zipcode.new(zipcode)
   end
 
-  def simplify(attribute)
-    attribute.to_s.downcase
-  end
-
 end
