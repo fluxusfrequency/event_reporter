@@ -1,3 +1,4 @@
+require 'pry'
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -16,14 +17,12 @@ class SavingTest < MiniTest::Test
   end
 
   def test_responds_to_find_by_location
-    skip
     reporter.parse_input("find city Salt Lake City")
     assert_equal 13, reporter.parse_input("queue count")
   end
 
   def test_responds_to_queue_print
-    skip
-    assert_equal 13, reporter.queue_print.length
+    # assert_equal 13, reporter.
   end
 
   def test_responds_to_queue_save_to_filename

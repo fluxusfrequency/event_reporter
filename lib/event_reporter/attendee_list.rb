@@ -1,9 +1,13 @@
 require_relative 'loader'
+require 'pry'
 
 class AttendeeList
+  attr_reader :list
+
   def initialize(file)
     @loader = Loader.new
     @attendees = @loader.load_file(file)
+    @list = []
     populate_list
   end
 

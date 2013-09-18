@@ -23,6 +23,7 @@ class EventReporter
     @loader = Loader.new
     @parts = []
     @queue = []
+    @list = []
   end
 
   def run
@@ -30,7 +31,7 @@ class EventReporter
             Welcome to Event Reporter. Event Reporter helps analyze data in csv files that contain contact
             information such as names, addresses, and phone numbers. For more information, please type help.
     "
-
+    input = ""
     until input == "quit"
       printf "\n Enter command: "
       input = gets.chomp
@@ -64,14 +65,14 @@ class EventReporter
     if @parts[1].nil?
       @parts[1] = "event_attendees.csv"
     end
-    loader.load_file(@parts[1].to_s)
+    loader.load_file(@parts[1])
     puts "\n Successfully loaded #{@parts[1]}.\n"
-    build_attendee_list
+    build_attendee_list(@parts[1])
     return "successfully loaded #{@parts[1]}"
   end
 
-  def build_attendee_list
-    @list = AttendeeList.new(@parts[1].to_s)
+  def build_attendee_list(data)
+    @list = AttendeeList.new(data).list
   end
 
   def queue
@@ -96,14 +97,23 @@ class EventReporter
     if @parts[1] == nil || @parts[2] == nil
       puts "\nPlease enter a column and criteria to find by. Type 'help find' for help."
     else
-      @loader.contents.each do |row|
-        column = row[@parts[1].to_sym].downcase
-        criteria = @parts[2..-1].join(" ").downcase
-        if column == criteria
-          attributes = row.to_a.map {|x,y| y}
-          @queue.push Attendee.new(*attributes)
+      column = @parts[1].downcase.to_sym
+      # binding.pry
+      criteria = @parts[2..-1].join(" ").downcase
+      @list.each do |attendee|
+        unless attendee[column].nil?
+          if attendee[column].downcase == criteria
+            @queue << attendee
+          end
         end
       end
+      # @loader.contents.each do |row|
+      #
+      #   if column == criteria
+      #     attributes = row.to_a.map {|x,y| y}
+      #     @queue << Attendee.new(*attributes)
+      #   end
+      # end
       puts "\nSuccessfully found #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
     end
   end
@@ -135,11 +145,11 @@ class EventReporter
   end
 
   def print_by
-    @queue = @queue.sort_by {|attendee| attendee.send(@parts[3].to_sym)}
+    @queue = @queue.sort_by {|attendee| attendee[@parts[3].downcase.to_sym]}
     @queue.each do |item|
       puts "#{item}"
     end
-    puts "\nSuccessfully printed queue by last name."
+    puts "\nSuccessfully printed queue by #{@parts[3]}."
     return "successfully printed by last name"
   end
 
