@@ -5,41 +5,33 @@ class Finder
     @loader = Loader.new
   end
 
-  def find_by(type, argument)
-    case type
-    when "first_name"
-      find_first_name(argument)
-    when "last_name"
-      find_last_name(argument)
-    when "city"
-      find_city(argument)
-    when "state"
-      find_state(argument)
-    when "reg_date"
-      find_reg_date(argument)
-    when "home_phone"
-      find_home_phone(argument)
+  def find_parse
+    if @extension
+      if @find_criteria
+        find_by_criteria(@extension.to_sym, @find_criteria.join(" ").to_s)
+        puts "\nSuccessfully found all of the #{@extension.to_sym}s matching #{@find_criteria.join(" ").to_s}."
+      else
+        find_by_column(@extension.to_sym)
+        "\nSuccessfully found all of the #{@extension.to_sym}s."
+      end
     else
-      puts "Couldn't find any data matching the type #{type}."
+      puts "\nPlease enter a column and optional criteria to find by. Type 'help find' for help."
     end
   end
 
-  def find_first_name(first_name)
-
+  def find_by_column(column)
+    #if column.nil?
+    #  puts "Couldn't find any data matching the type #{column}."
+    #  return
+    #end
+    add_to_queue(column)
   end
 
-  def find_last_name(last_name)
-  end
-
-  def find_city(city)
-  end
-
-  def find_state(state)
-  end
-
-  def find_reg_date(regdate)
-  end
-
-  def find_home_phone(phone_number)
+  def find_by_criteria(column, criteria)
+    #if @contents.nil?
+    #  puts "Couldn't find any data matching the type #{column} or the criteria #{criteria}."
+    #  return
+    #end
+    add_to_queue_with_criteria(column, criteria)
   end
 end
