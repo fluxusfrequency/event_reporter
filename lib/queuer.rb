@@ -4,14 +4,14 @@ class Queuer
   end
 
   def queue_parse
-    case @extension
+    case @parts[1]
       when "count"
        puts "\nThe queue currently has #{queue_count} items in it."
       when "clear"
         queue_clear
         puts "\n The queue was cleared."
       when "print"
-        if @subcommand == "by"
+        if @parts[2] == "by"
           queue_print_by_mcguffin
         else
           queue_print

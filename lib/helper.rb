@@ -1,8 +1,8 @@
 class Helper
 
   def help_parse
-    case @extension
-      when "queue" then help_for_queue(@subcommand)
+    case @parts[1]
+      when "queue" then help_for_queue(@parts[2])
       when "find" then help_for_find
       when "load" then help_for_load
       else help_summary
