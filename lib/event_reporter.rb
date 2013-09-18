@@ -79,7 +79,8 @@ class EventReporter
   def queue
     case @parts[1]
       when "count"
-        puts "\nThe queue currently has #{@count} items in it."
+        puts "\nThe queue currently has #{@queue.count} items in it."
+        return @queue.count
       when "clear"
         clear
         puts "\n The queue was cleared."

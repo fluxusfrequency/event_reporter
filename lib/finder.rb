@@ -1,9 +1,4 @@
-require_relative 'queuer.rb'
-
 class Finder
-  def initialize
-    @queuer = Queuer.new
-  end
 
   def find_by_column(column)
     if column.nil?
