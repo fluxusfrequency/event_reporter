@@ -97,16 +97,10 @@ class EventReporter
       puts "\nPlease enter a column and criteria to find by. Type 'help find' for help."
     else
       @loader.contents.each do |row|
-        # What is the data in the column we are looking for?
         column = row[@parts[1].to_sym].downcase
         criteria = @parts[2..-1].join(" ").downcase
-        # if the column with the name that matches the type specified
-        # equals the criteria that I am looking for
         if column == criteria
-
-        # then add this attendees data to the queue
-          # @queue << row
-          attributes = row.to_s.split(",")
+          attributes = row.to_a.map {|x,y| y}
           @queue.push Attendee.new(*attributes)
         end
       end
