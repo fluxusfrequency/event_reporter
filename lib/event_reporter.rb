@@ -23,7 +23,6 @@ class EventReporter
     @finder = Finder.new
     @helper = Helper.new
     @loader = Loader.new
-    @queuer = Queuer.new
     @parts = []
     @contents = []
     @queue = []
@@ -80,18 +79,18 @@ class EventReporter
   def queue
     case @parts[1]
       when "count"
-        current_count = queuer.count(@queue)
+        current_count = count(@queue)
         puts "\nThe queue currently has #{current_count} items in it."
         current_count
       when "clear"
-        queuer.clear(@queue)
+        clear(@queue)
         puts "\n The queue was cleared."
       when "print"
         if @parts[2] == "by"
           finder.find_by_column(@parts[3])
-          queuer.print_by(@contents, @parts[3])
+         print_by(@contents, @parts[3])
         else
-          queuer.print
+          print
         end
       else command_error
     end
@@ -117,6 +116,56 @@ class EventReporter
       when "find" then help_for_find
       when "load" then help_for_load
       else help_summary
+    end
+  end
+
+  def count(queue)
+    queue.length
+  end
+
+  def clear(queue)
+    queue = []
+  end
+
+  def print(queue)
+    queue.each do |item|
+      puts "#{item}"
+    end
+    puts queue
+    puts "\nSuccessfully printed queue."
+    return "successfully printed queue"
+  end
+
+  def print_by(queue, mcguffin)
+    #@queue.sort!
+    @queue.each do |item|
+      puts "#{item}"
+    end
+    puts "\nSuccessfully printed queue by last name."
+    return "successfully printed by last name"
+  end
+
+  def add_to_queue(column)
+    @contents.each do |row|
+      field_name = column.to_sym
+      matching_field = row[field_name].downcase
+      @queue << row
+    end
+  end
+
+  def add_to_queue_with_criteria(column, criteria)
+    @contents.each do |row|
+      # What is the data in the column we are looking for?
+      field_name = column.to_sym
+      matching_field = row[field_name].downcase
+
+      # if the column with the name that matches the type specified
+      # equals the criteria that I am looking for
+      if matching_field == criteria.downcase
+      # then add this attendees data to the queue
+      @queue << row
+      #@queue.push Attendee.new(row)
+      end
     end
   end
 
