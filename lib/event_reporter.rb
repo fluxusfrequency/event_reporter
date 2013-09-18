@@ -17,6 +17,7 @@ require_relative 'loader.rb'
 require_relative 'queuer.rb'
 
 class EventReporter
+  attr_accessor :finder, :helper, :loader, :queuer
   def initialize
     @finder = Finder.new
     @helper = Helper.new
@@ -33,10 +34,10 @@ class EventReporter
             information such as names, addresses, and phone numbers. For more information, please type help.
     "
 
-    while @command != "quit"
+    until @command == "quit"
       printf "\n Enter command: "
       input = gets.chomp
-      parser.parse_input(input)
+      parse_input(input)
     end
   end
 
@@ -47,12 +48,12 @@ class EventReporter
   def parse_input(input)
     clean_input(input)
     @parts = input.split
-    @command = @parts[0]
+    # @command = @parts[0]
     # @extension = @parts[1]
-    @subcommand = @parts[2]
-    @find_criteria = @parts[2..-1]
-    @mcguffin = @parts[3..-1]
-    parse_command(@command)
+    # @subcommand = @parts[2]
+    # @find_criteria = @parts[2..-1]
+    # @mcguffin = @parts[3..-1]
+    parse_command(@parts[0])
   end
 
   def parse_command(command)
@@ -62,9 +63,9 @@ class EventReporter
           @parts[1] = "event_attendees.csv"
         end
         load_file(@parts[1].to_s)
-      when "help" then help_parse
-      when "queue" then queue_parse
-      when "find" then find_parse
+      when "help" then helper.help_parse
+      when "queue" then queuer.queue_parse
+      when "find" then finder.find_parse
       when "quit"
         puts "Goodbye! Event Reporter is shutting down."
       else
