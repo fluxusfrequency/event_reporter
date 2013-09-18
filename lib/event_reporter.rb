@@ -20,6 +20,7 @@ class EventReporter
   attr_accessor :finder, :helper, :loader, :queuer
 
   def initialize
+    @attende = Attendee.new
     @finder = Finder.new
     @helper = Helper.new
     @loader = Loader.new
