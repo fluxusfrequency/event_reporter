@@ -12,6 +12,7 @@
 
 require 'pry'
 require_relative 'attendee'
+require_relative 'attendee_list'
 require_relative 'helper'
 require_relative 'loader'
 
@@ -21,7 +22,6 @@ class EventReporter
   def initialize
     @loader = Loader.new
     @parts = []
-    @contents = []
     @queue = []
   end
 
@@ -34,16 +34,11 @@ class EventReporter
     until input == "quit"
       printf "\n Enter command: "
       input = gets.chomp
-      parse_input(input)
+      parse_input(input.downcase)
     end
   end
 
-  def clean_input(input)
-    input = input.downcase
-  end
-
   def parse_input(input)
-    clean_input(input)
     @parts = input.split
     parse_command(@parts[0])
   end
