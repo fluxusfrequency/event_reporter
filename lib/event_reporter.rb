@@ -16,10 +16,9 @@ require_relative 'helper.rb'
 require_relative 'loader.rb'
 
 class EventReporter
-  attr_accessor :finder, :helper, :loader, :queuer
+  attr_accessor :helper, :loader
 
   def initialize
-    @helper = Helper.new
     @loader = Loader.new
     @parts = []
     @contents = []
@@ -78,8 +77,8 @@ class EventReporter
   def queue
     case @parts[1]
       when "count"
-        puts "\nThe queue currently has #{@queue.count} items in it."
-        return @queue.count
+        puts "\nThe queue currently has #{count} items in it."
+        return count
       when "clear"
         clear
         puts "\n The queue was cleared."
@@ -134,10 +133,11 @@ class EventReporter
   end
 
   def help
+    @helper = Helper.new
     case @parts[1]
-      when "queue" then help_for_queue(@parts[2])
-      when "find" then help_for_find
-      when "load" then help_for_load
+      when "queue" then @helper.help_for_queue(@parts[2])
+      when "find" then @helper.help_for_find
+      when "load" then @helper.help_for_load
       else help_summary
     end
   end
@@ -166,14 +166,6 @@ class EventReporter
     end
     puts "\nSuccessfully printed queue by last name."
     return "successfully printed by last name"
-  end
-
-  def add_to_queue(column)
-
-  end
-
-  def add_to_queue_with_criteria(column, criteria)
-
   end
 
 end
