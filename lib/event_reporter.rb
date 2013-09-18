@@ -145,6 +145,10 @@ class EventReporter
   end
 
   def add_to_queue(column)
+    if column.nil?
+      puts "Couldn't find any data matching the type #{column}."
+      return
+    end
     @contents.each do |row|
       field_name = column.to_sym
       matching_field = row[field_name].downcase
@@ -153,6 +157,10 @@ class EventReporter
   end
 
   def add_to_queue_with_criteria(column, criteria)
+    if column.nil? || criteria.nil?
+      puts "Couldn't find any data matching the type #{column} or the criteria #{criteria}."
+      return
+    end
     @contents.each do |row|
       # What is the data in the column we are looking for?
       field_name = column.to_sym

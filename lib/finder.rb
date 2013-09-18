@@ -5,7 +5,7 @@ class Finder
       puts "Couldn't find any data matching the type #{column}."
       return
     end
-    @queuer.add_to_queue(column)
+    add_to_queue(column)
   end
 
   def find_by_criteria(column, criteria)
@@ -13,7 +13,7 @@ class Finder
       puts "Couldn't find any data matching the type #{column} or the criteria #{criteria}."
       return
     end
-    @queuer.add_to_queue_with_criteria(column, criteria)
+    add_to_queue_with_criteria(column, criteria)
   end
 
 end
