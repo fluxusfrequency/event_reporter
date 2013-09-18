@@ -1,5 +1,5 @@
-require_relative '../lib/phone_number.rb'
-require_relative '../lib/zipcode.rb'
+require_relative '../phone_number.rb'
+require_relative '../zipcode.rb'
 
 class Attendee
   attr_accessor :id, :reg_date, :first_name, :last_name, :email, :phone_number, :street, :city, :state, :zipcode

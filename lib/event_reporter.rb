@@ -11,7 +11,7 @@
 ###################
 
 require 'pry'
-require_relative 'attendee'
+require_relative 'event_reporter/attendee'
 require_relative 'attendee_list'
 require_relative 'helper'
 require_relative 'loader'

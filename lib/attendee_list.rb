@@ -1,4 +1,3 @@
-require_relative 'attendee'
 require_relative 'loader'
 
 class AttendeeList
