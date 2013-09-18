@@ -34,12 +34,12 @@ class EventReporter
     until input == "quit"
       printf "\n Enter command: "
       input = gets.chomp
-      parse_input(input.downcase)
+      parse_input(input)
     end
   end
 
   def parse_input(input)
-    @parts = input.split
+    @parts = input.downcase.split
     parse_command(@parts[0])
   end
 
@@ -66,7 +66,12 @@ class EventReporter
     end
     loader.load_file(@parts[1].to_s)
     puts "\n Successfully loaded #{@parts[1]}.\n"
+    build_attendee_list
     return "successfully loaded #{@parts[1]}"
+  end
+
+  def build_attendee_list
+    @list = AttendeeList.new(@parts[1].to_s)
   end
 
   def queue
@@ -79,7 +84,7 @@ class EventReporter
         puts "\n The queue was cleared."
       when "print"
         if @parts[2] == "by"
-         print_by
+          print_by
         else
           print
         end
@@ -89,7 +94,7 @@ class EventReporter
 
   def find
     if @parts[1] == nil
-      puts "\nPlease enter a column and optional criteria to find by. Type 'help find' for help."
+      puts "\nPlease enter a column and criteria to find by. Type 'help find' for help."
     else
       if @parts[2] != nil
         @loader.contents.each do |row|
