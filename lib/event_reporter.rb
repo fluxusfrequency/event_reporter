@@ -26,6 +26,7 @@ class EventReporter
     @queuer = Queuer.new
     @parts = []
     @contents = []
+    @queue = []
     @command = ""
   end
 
@@ -49,11 +50,6 @@ class EventReporter
   def parse_input(input)
     clean_input(input)
     @parts = input.split
-    # @command = @parts[0]
-    # @extension = @parts[1]
-    # @subcommand = @parts[2]
-    # @find_criteria = @parts[2..-1]
-    # @mcguffin = @parts[3..-1]
     parse_command(@parts[0])
   end
 
@@ -84,16 +80,18 @@ class EventReporter
   def queue
     case @parts[1]
       when "count"
-        current_count = queuer.queue_count
+        current_count = queuer.count(@queue)
         puts "\nThe queue currently has #{current_count} items in it."
+        current_count
       when "clear"
-        queuer.queue_clear
+        queuer.clear(@queue)
         puts "\n The queue was cleared."
       when "print"
         if @parts[2] == "by"
-          queuer.queue_print_by(@parts[3])
+          finder.find_by_column(@parts[3])
+          queuer.print_by(@contents, @parts[3])
         else
-          queuer.queue_print
+          queuer.print
         end
       else command_error
     end
@@ -103,11 +101,11 @@ class EventReporter
     if @parts[1] == nil
       puts "\nPlease enter a column and optional criteria to find by. Type 'help find' for help."
     else
-      if @find_criteria
-        find_by_criteria(@parts[1].to_sym, @parts[2..-1].join(" ").to_s)
+      if @parts[2] != nil
+        finder.find_by_criteria(@parts[1].to_sym, @parts[2..-1].join(" ").to_s)
         puts "\nSuccessfully found all of the #{@parts[1].to_sym}s matching #{@parts[2..-1].join(" ").to_s}."
       else
-        find_by_column(@parts[1].to_sym)
+        finder.find_by_column(@parts[1].to_sym)
         "\nSuccessfully found all of the #{@parts[1].to_sym}s."
       end
     end

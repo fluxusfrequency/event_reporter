@@ -1,26 +1,22 @@
 class Queuer
-  def initialize
-    @queue = []
+  def count(queue)
+    queue.length
   end
 
-  def queue_count
-    @queue.length
+  def clear(queue)
+    queue = []
   end
 
-  def queue_clear
-    @queue = []
-  end
-
-  def queue_print
-    @queue.each do |item|
+  def print(queue)
+    queue.each do |item|
       puts "#{item}"
     end
-    puts @queue
+    puts queue
     puts "\nSuccessfully printed queue."
     return "successfully printed queue"
   end
 
-  def queue_print_by(mcguffin)
+  def print_by(queue, mcguffin)
     #@queue.sort!
     @queue.each do |item|
       puts "#{item}"
@@ -30,7 +26,6 @@ class Queuer
   end
 
   def add_to_queue(column)
-    queue_clear
     @contents.each do |row|
       field_name = column.to_sym
       matching_field = row[field_name].downcase
@@ -39,7 +34,6 @@ class Queuer
   end
 
   def add_to_queue_with_criteria(column, criteria)
-    queue_clear
     @contents.each do |row|
       # What is the data in the column we are looking for?
       field_name = column.to_sym
