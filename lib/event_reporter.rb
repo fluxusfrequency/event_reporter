@@ -84,8 +84,7 @@ class EventReporter
         puts "\n The queue was cleared."
       when "print"
         if @parts[2] == "by"
-         finder.find_by_column(@parts[3])
-         print_by(@loader.contents, @parts[3])
+         print_by
         else
           print
         end
@@ -112,22 +111,6 @@ class EventReporter
           #@queue.push Attendee.new(row)
         end
         puts "\nSuccessfully found all of the #{@parts[1].to_sym}s matching #{@parts[2..-1].join(" ").to_s}."
-      else
-        if column.nil?
-              puts "Couldn't find any data matching the type #{column}."
-              return
-            end
-            # @contents.each do |row|
-            #   field_name = column.to_sym
-            #   matching_field = row[field_name].downcase
-            #   @queue << row
-            # end
-            @contents.each do |row|
-              field_name = column.to_sym
-              @attendee = Attendee.new(row[field_name].downcase)
-              @queue << @attendee
-            end
-        "\nSuccessfully found all of the #{@parts[1]}s."
       end
     end
   end
@@ -154,14 +137,12 @@ class EventReporter
     @queue.each do |item|
       puts "#{item}"
     end
-    puts queue
     puts "\nSuccessfully printed queue."
     return "successfully printed queue"
   end
 
-  def print_by(queue, mcguffin)
-    #@queue.sort!
-    queue.each do |item|
+  def print_by
+    @queue.each do |item|
       puts "#{item}"
     end
     puts "\nSuccessfully printed queue by last name."
