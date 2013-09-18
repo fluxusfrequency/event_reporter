@@ -12,7 +12,7 @@ class Queuer
         puts "\n The queue was cleared."
       when "print"
         if @parts[2] == "by"
-          queue_print_by_mcguffin
+          queue_print_by(@parts[3])
         else
           queue_print
         end
@@ -37,7 +37,7 @@ class Queuer
     return "successfully printed queue"
   end
 
-  def queue_print_by_mcguffin
+  def queue_print_by(mcguffin)
     #@queue.sort!
     @queue.each do |item|
       puts "#{item}"

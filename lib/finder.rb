@@ -14,6 +14,7 @@ class Finder
         find_by_column(@parts[1].to_sym)
         "\nSuccessfully found all of the #{@parts[1].to_sym}s."
       end
+    end
   end
 
   def find_by_column(column)
