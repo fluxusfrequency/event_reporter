@@ -1,5 +1,6 @@
 require 'minitest'
 require 'minitest/autorun'
+require 'minitest/pride'
 require_relative '../lib/event_reporter.rb'
 
 class PrintingTest < MiniTest::Test

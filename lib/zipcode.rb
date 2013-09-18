@@ -5,7 +5,7 @@ class Zipcode
     @zipcode = zipcode
   end
 
-  def clean_zipcode
+  def clean
     if @zipcode
       @zipcode = @zipcode.scan(/[0-9]/).join
       if @zipcode.length != 5

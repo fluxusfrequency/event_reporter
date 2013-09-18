@@ -1,6 +1,6 @@
-=begin
 require 'minitest'
 require 'minitest/autorun'
+require 'minitest/pride'
 require_relative '../lib/event_reporter.rb'
 
 class SavingTest < MiniTest::Test
@@ -8,16 +8,17 @@ class SavingTest < MiniTest::Test
 
   def setup
     @reporter = EventReporter.new
+    reporter.parse_input("load")
   end
 
   def test_responds_to_load_filename
-    skip
-    assert_equal 'Successfully loaded event_attendees.csv.', reporter.load("event_attendees.csv")
+    assert_equal 'successfully loaded event_attendees.csv', reporter.parse_input("load event_attendees.csv")
   end
 
-  def test_responds_to_find_by_by_location
+  def test_responds_to_find_by_location
     skip
-    reporter.find("city", "Salt Lake City")
+    reporter.parse_input("find city Salt Lake City")
+    assert_equal 13, reporter.parse_input("queue count")
   end
 
   def test_responds_to_queue_print
@@ -59,4 +60,3 @@ class SavingTest < MiniTest::Test
   end
 
 end
-=end

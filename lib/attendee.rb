@@ -1,4 +1,8 @@
+require_relative '../lib/phone_number.rb'
+require_relative '../lib/zipcode.rb'
+
 class Attendee
+  attr_accessor :id, :reg_date, :first_name, :last_name, :email, :phone_number, :street, :city, :state, :zipcode
 
   def initialize (id, regdate, first_name, last_name, email_address, homephone, street, city, state, zipcode)
     @id = id
@@ -6,11 +10,15 @@ class Attendee
     @first_name = first_name
     @last_name = last_name
     @email = email_address
-    @phone = homephone
+    @phone = PhoneNumber.new(homephone)
     @street = street
     @city = city
     @state = state
-    @zipcode = zipcode
+    @zipcode = Zipcode.new(zipcode)
+  end
+
+  def simplify(attribute)
+    attribute.to_s.downcase
   end
 
 end

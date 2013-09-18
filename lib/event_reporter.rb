@@ -10,11 +10,10 @@
 #
 ###################
 
-require 'csv'
 require 'pry'
-require_relative 'attendee.rb'
-require_relative 'helper.rb'
-require_relative 'loader.rb'
+require_relative 'attendee'
+require_relative 'helper'
+require_relative 'loader'
 
 class EventReporter
   attr_accessor :helper, :loader
@@ -24,7 +23,6 @@ class EventReporter
     @parts = []
     @contents = []
     @queue = []
-    @command = ""
   end
 
   def run
@@ -33,7 +31,7 @@ class EventReporter
             information such as names, addresses, and phone numbers. For more information, please type help.
     "
 
-    until @command == "quit"
+    until input == "quit"
       printf "\n Enter command: "
       input = gets.chomp
       parse_input(input)
@@ -47,8 +45,7 @@ class EventReporter
   def parse_input(input)
     clean_input(input)
     @parts = input.split
-    @command = @parts[0]
-    parse_command(@command)
+    parse_command(@parts[0])
   end
 
   def parse_command(command)
@@ -102,10 +99,10 @@ class EventReporter
           # What is the data in the column we are looking for?
           field_name = @parts[1].to_sym
           matching_field = row[field_name].downcase
-
           # if the column with the name that matches the type specified
           # equals the criteria that I am looking for
-          if matching_field == @parts[2].downcase
+          if matching_field == @parts[2..-1].join(" ").downcase
+
           # then add this attendees data to the queue
             @queue << row
           end
