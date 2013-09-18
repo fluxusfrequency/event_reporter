@@ -98,16 +98,17 @@ class EventReporter
     else
       @loader.contents.each do |row|
         # What is the data in the column we are looking for?
-        field_name = @parts[1].to_sym
-        matching_field = row[field_name].downcase
+        column = row[@parts[1].to_sym].downcase
+        criteria = @parts[2..-1].join(" ").downcase
         # if the column with the name that matches the type specified
         # equals the criteria that I am looking for
-        if matching_field == @parts[2..-1].join(" ").downcase
+        if column == criteria
 
         # then add this attendees data to the queue
-          @queue << row
+          # @queue << row
+          attributes = row.to_s.split(",")
+          @queue.push Attendee.new(*attributes)
         end
-        #@queue.push Attendee.new(row)
       end
       puts "\nSuccessfully found #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
     end
@@ -140,7 +141,7 @@ class EventReporter
   end
 
   def print_by
-    @queue = @queue.sort_by {|attendee| attendee[@parts[3].to_sym]}
+    @queue = @queue.sort_by {|attendee| attendee.send(@parts[3].to_sym)}
     @queue.each do |item|
       puts "#{item}"
     end
