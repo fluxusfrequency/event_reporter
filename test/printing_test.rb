@@ -6,25 +6,21 @@ class PrintingTest < MiniTest::Test
   attr_accessor :reporter
 
   def setup
-    skip
     @reporter = EventReporter.new
-    reporter.load_file('event_attendees.csv')
+    reporter.parse_input("load")
   end
 
   def test_responds_to_load_filename
-    skip
-    assert_equal 'Successfully loaded event_attendees.csv.', reporter.parse_input("load event_attendees.csv")
+    assert_equal 'successfully loaded event_attendees.csv', reporter.parse_input("load event_attendees.csv")
   end
 
   def test_queue_count_defaults_to_zero
-    skip
-    assert_equal 0, reporter.queue_count
+    assert_equal 0, reporter.parse_input("queue count")
   end
 
   def test_responds_to_find_by_first_name
-    skip
     reporter.parse_input("find first_name John")
-    assert_equal 63, reporter.queue_count
+    assert_equal 63, reporter.parse_input("queue count")
   end
 
   def test_responds_to_find_by_another_first_name
