@@ -98,7 +98,6 @@ class EventReporter
       puts "\nPlease enter a column and criteria to find by. Type 'help find' for help."
     else
       column = @parts[1].downcase.to_sym
-      # binding.pry
       criteria = @parts[2..-1].join(" ").downcase
       @list.each do |attendee|
         unless attendee[column].nil?
@@ -107,13 +106,6 @@ class EventReporter
           end
         end
       end
-      # @loader.contents.each do |row|
-      #
-      #   if column == criteria
-      #     attributes = row.to_a.map {|x,y| y}
-      #     @queue << Attendee.new(*attributes)
-      #   end
-      # end
       puts "\nSuccessfully found #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
     end
   end

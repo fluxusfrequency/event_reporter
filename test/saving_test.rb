@@ -22,6 +22,7 @@ class SavingTest < MiniTest::Test
   end
 
   def test_responds_to_queue_print
+    reporter.parse_input("queue print")
     # assert_equal 13, reporter.
   end
 
