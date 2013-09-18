@@ -79,15 +79,13 @@ class EventReporter
   def queue
     case @parts[1]
       when "count"
-        current_count = count(@queue)
-        puts "\nThe queue currently has #{current_count} items in it."
-        current_count
+        puts "\nThe queue currently has #{@count} items in it."
       when "clear"
-        clear(@queue)
+        clear
         puts "\n The queue was cleared."
       when "print"
         if @parts[2] == "by"
-          finder.find_by_column(@parts[3])
+         finder.find_by_column(@parts[3])
          print_by(@contents, @parts[3])
         else
           print
@@ -119,16 +117,16 @@ class EventReporter
     end
   end
 
-  def count(queue)
-    queue.length
+  def count
+    @queue.length
   end
 
-  def clear(queue)
-    queue = []
+  def clear
+    @queue = []
   end
 
-  def print(queue)
-    queue.each do |item|
+  def print
+    @queue.each do |item|
       puts "#{item}"
     end
     puts queue
@@ -138,7 +136,7 @@ class EventReporter
 
   def print_by(queue, mcguffin)
     #@queue.sort!
-    @queue.each do |item|
+    queue.each do |item|
       puts "#{item}"
     end
     puts "\nSuccessfully printed queue by last name."
