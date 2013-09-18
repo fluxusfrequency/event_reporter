@@ -12,9 +12,9 @@
 
 require 'pry'
 require_relative 'event_reporter/attendee'
-require_relative 'attendee_list'
-require_relative 'helper'
-require_relative 'loader'
+require_relative 'event_reporter/attendee_list'
+require_relative 'event_reporter/helper'
+require_relative 'event_reporter/loader'
 
 class EventReporter
   attr_accessor :helper, :loader
