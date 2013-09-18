@@ -28,13 +28,11 @@ class HappyPathTest < MiniTest::Test
   end
 
   def test_responds_to_queue_clear
-    skip
     reporter.parse_input("queue clear")
     assert_equal 0, reporter.parse_input("queue count")
   end
 
   def test_responds_to_help
-    skip
     assert_equal "responded to help", reporter.parse_input("help")
   end
 

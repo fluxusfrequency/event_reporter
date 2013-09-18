@@ -138,7 +138,7 @@ class EventReporter
       when "queue" then @helper.help_for_queue(@parts[2])
       when "find" then @helper.help_for_find
       when "load" then @helper.help_for_load
-      else help_summary
+      else @helper.help_summary
     end
   end
 
