@@ -70,6 +70,7 @@ class EventReporter
       @parts[1] = "event_attendees.csv"
     end
     loader.load_file(@parts[1].to_s)
+    return "successfully loaded #{@parts[1]}"
   end
 
   def queue

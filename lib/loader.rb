@@ -8,7 +8,7 @@ class Loader
   def load_file(filename)
     @contents = CSV.open(filename, headers: true, header_converters: :symbol)
     puts "\n Successfully loaded #{filename}.\n"
-    return "successfully loaded #{filename}"
+    return @contents
   end
 
   def contents
