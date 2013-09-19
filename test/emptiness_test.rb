@@ -19,13 +19,12 @@ class EmptinessTest < MiniTest::Test
   end
 
   def test_responds_to_queue_clear_without_an_arror
-    skip
-    assert_raise "", reporter.queue_clear
+    assert_equal [], reporter.parse_input("queue clear")
   end
 
   def test_test_prints_nothing_on_queue_print_by_attribute_when_queue_is_empty
     skip
-    assert_equal '', reporter.queue_print(last_name)
+    assert_equal '', reporter.parse_input("queue print by last_name")
   end
 
   def test_responds_to_queue_save_an_empty_file

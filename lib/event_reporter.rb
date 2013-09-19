@@ -86,6 +86,7 @@ class EventReporter
       when "clear"
         clear
         puts "\n The queue was cleared."
+        return @queue
       when "print"
         if @parts[2] == "by"
           print_by
@@ -146,7 +147,6 @@ class EventReporter
     @queue.each do |item|
       puts "#{item}"
     end
-    # binding.pry
     if count == 0
       puts "\nPrint was unsuccessful, because the queue was empty. Try running a 'find' command first."
       return ''
