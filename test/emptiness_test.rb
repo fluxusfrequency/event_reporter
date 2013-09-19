@@ -23,7 +23,6 @@ class EmptinessTest < MiniTest::Test
   end
 
   def test_test_prints_nothing_on_queue_print_by_attribute_when_queue_is_empty
-    skip
     assert_equal '', reporter.parse_input("queue print by last_name")
   end
 

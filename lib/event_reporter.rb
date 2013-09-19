@@ -148,7 +148,7 @@ class EventReporter
       puts "#{item}"
     end
     if count == 0
-      puts "\nPrint was unsuccessful, because the queue was empty. Try running a 'find' command first."
+      puts "\nPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
       return ''
     else
       puts "\nSuccessfully printed #{count} queue items."
@@ -161,8 +161,13 @@ class EventReporter
     @queue.each do |item|
       puts "#{item}"
     end
-    puts "\nSuccessfully printed #{count} queue items by #{@parts[3]}."
-    return "successfully printed #{count} queue items by #{@parts[3]}"
+    if count == 0
+      puts "\nPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
+      return ''
+    else
+      puts "\nSuccessfully printed #{count} queue items by #{@parts[3]}."
+      return "successfully printed #{count} queue items by #{@parts[3]}"
+    end
   end
 
 end
