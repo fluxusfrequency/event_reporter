@@ -30,6 +30,7 @@ class EmptinessTest < MiniTest::Test
     reporter.parse_input("queue save empty.csv")
     emptyfile = File.open('empty.csv', "r")
     assert_equal "id,regdate,first_name,last_name,email_address,homephone,street,city,state,zipcode", emptyfile.gets.chomp
+    assert_equal nil, emptyfile.gets
   end
 
   def test_opens_an_empty_CSV_file_and_inspects_headers
