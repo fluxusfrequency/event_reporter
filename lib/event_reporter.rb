@@ -122,6 +122,7 @@ class EventReporter
     if @parts[1] == nil || @parts[2] == nil
       puts "\n\t\tPlease enter a column and criteria to find by. Type 'help find' for help."
     else
+      clear
       column = @parts[1].downcase.to_sym
       criteria = @parts[2..-1].join(" ").downcase
       @list.each do |attendee|
