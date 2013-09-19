@@ -31,6 +31,7 @@ class SavingTest < MiniTest::Test
     reporter.parse_input("queue save city_sample.csv")
     cityfile = File.open('city_sample.csv', "r")
     assert_equal "id,regdate,first_name,last_name,email_address,homephone,street,city,state,zipcode", cityfile.gets.chomp
+    assert_equal "26,12/2/08 23:19,Michael,Panek,dntisler@jumpstartlab.com,\"\",1434 Wilson Ave.,Salt Lake City,UT,84105", cityfile.gets.chomp
   end
 
   def test_responds_to_find_by_state
@@ -44,14 +45,11 @@ class SavingTest < MiniTest::Test
   end
 
   def test_responds_to_queue_save
-    skip
-    assert_equal '', reporter.queue_save('state_sample.csv')
-  end
-
-  def test_opens_a_saved_CSV_file_and_inspects_headers
-    skip
-    cityfile = File.open('state_sample.csv', r)
-    assert_equal cityfile.read, reporter.inspect_headers('state_sample.csv')
+    reporter.parse_input("find state DC")
+    reporter.parse_input("queue save state_sample.csv")
+    statefile = File.open("state_sample.csv", "r")
+    assert_equal "id,regdate,first_name,last_name,email_address,homephone,street,city,state,zipcode", statefile.gets.chomp
+    assert_equal "1,11/12/08 10:47,Allison,Nguyen,arannon@jumpstartlab.com,\"\",3155 19th St NW,Washington,DC,20010", statefile.gets.chomp
   end
 
 end
