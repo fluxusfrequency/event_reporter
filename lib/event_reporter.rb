@@ -113,6 +113,7 @@ class EventReporter
     if @parts[2].nil?
       puts "\n\t\tPlease enter a filename to save to. Type 'help queue save' for more information."
     else
+      saver.delete_if_there(@parts[2])
       saver.save(@parts[2], @queue)
     end
   end
