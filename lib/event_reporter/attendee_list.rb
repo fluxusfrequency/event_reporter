@@ -1,5 +1,6 @@
 require_relative 'loader'
 
+
 class AttendeeList
   attr_reader :list
 
@@ -18,7 +19,7 @@ class AttendeeList
         :first_name => row[:first_name],
         :last_name => row[:last_name],
         :email => row[:email_address],
-        :phone => row[:phone],
+        :phone => row[:homephone],
         :street => row[:street],
         :city => row[:city],
         :state => row[:state],

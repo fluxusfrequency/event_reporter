@@ -26,6 +26,7 @@ class HappyPathTest < MiniTest::Test
   def test_responds_to_find_by_first_name
     reporter.parse_input("find first_name John")
     assert_equal 63, reporter.parse_input("queue count")
+    reporter.parse_input("queue print")
   end
 
   def test_responds_to_queue_clear

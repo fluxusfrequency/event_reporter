@@ -1,12 +1,12 @@
+require 'pry'
+
 class Printer
   # def initialize
   # end
 
   def print(queue)
     create_tabs
-    queue.each do |item|
-      puts "#{item}"
-    end
+    print_lines(queue)
     if queue.length == 0
       puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
       return ''
@@ -19,9 +19,7 @@ class Printer
   def print_by(queue, param)
     create_tabs
     queue = queue.sort_by {|attendee| attendee[param.downcase.to_sym]}
-    queue.each do |item|
-      puts "#{item}"
-    end
+    print_lines(queue)
     if queue.length == 0
       puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
       return ''
@@ -32,9 +30,23 @@ class Printer
   end
 
   def create_tabs
-    puts "----------------------------------------------------------------------------------------------------------------------------------------------"
-    puts "LAST NAME       FIRST NAME  EMAIL                ZIPCODE     CITY                    STATE  ADDRESS                              PHONE"
-    puts "----------------------------------------------------------------------------------------------------------------------------------------------"
+    puts "--------------------------------------------------------------------------------------------------------------------------------------------"
+    puts "ATTENDEE ID   REG DATE      FIRST NAME    LAST NAME     EMAIL         PHONE         ADDRESS       CITY          STATE         ZIPCODE       "
+    puts "--------------------------------------------------------------------------------------------------------------------------------------------"
+  end
+
+  def print_lines(queue)
+    queue.each do |item|
+      item.values.each do |value|
+        if value.nil?
+          value = " "
+        end
+        value = value[0..12]
+        lvalue = value.ljust(14, " ")
+        printf "#{lvalue}"
+      end
+      puts ""
+    end
   end
 
 end
