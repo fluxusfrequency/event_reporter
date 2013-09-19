@@ -33,14 +33,13 @@ class ReadingTest < MiniTest::Test
   end
 
   def test_responds_to_load_filename_after_saving
-    skip
-    assert_equal 'Successfully loaded state_sample.csv.', reporter.load("state_sample.csv")
+    assert_equal 'successfully loaded state_sample.csv', reporter.parse_input("load state_sample.csv")
   end
 
   def test_responds_to_find_by_first_name
-    skip
-    reporter.find("first_name", "John")
-    assert_equal 4, reporter.queue_count
+    assert_equal 'successfully loaded state_sample.csv', reporter.parse_input("load state_sample.csv")
+    reporter.parse_input("find first_name John")
+    assert_equal 4, reporter.parse_input("queue count")
   end
 
 end
