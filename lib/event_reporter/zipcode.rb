@@ -1,17 +1,14 @@
 class Zipcode
-  attr_accessor :zipcode
 
-  def initialize(zipcode)
-    @zipcode = zipcode
-  end
-
-  def clean
-    if @zipcode
-      @zipcode = @zipcode.scan(/[0-9]/).join
-      if @zipcode.length != 5
-        @zipcode = "00000"
+  def clean(zipcode)
+    if zipcode.nil?
+      zipcode = "00000"
+    else
+      zipcode = zipcode.scan(/[0-9]/).join
+      if zipcode.length != 5
+        zipcode = "00000"
       end
-      return @zipcode
+      return zipcode
     end
   end
 

@@ -1,11 +1,13 @@
 require_relative 'loader'
-
+require_relative 'zipcode'
+require_relative 'phone_number'
 
 class AttendeeList
   attr_reader :list
 
   def initialize(file)
     @loader = Loader.new
+    @zipper = Zipcode.new
     @data = @loader.load_file(file)
     @list = []
     populate_list
@@ -23,7 +25,7 @@ class AttendeeList
         :street => row[:street],
         :city => row[:city],
         :state => row[:state],
-        :zipcode => row[:zipcode]
+        :zipcode => @zipper.clean(row[:zipcode])
       }
     end
   end
