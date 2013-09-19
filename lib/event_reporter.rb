@@ -80,26 +80,27 @@ class EventReporter
     case @parts[1]
       when "count" then count
       when "clear" then clear
-      when "print"
-        if @parts[2] == "by"
-          print_by
-        else
-          print
-        end
-      when "save"
-        saver = Saver.new
-        if @parts[2].nil?
-          puts "\n\t\tPlease enter a filename to save to. Type 'help queue save' for more information."
-        else
-          saver.save(@parts[2], @queue)
-        end
+      when "print" then print
+      when "save" then save
       else command_error
     end
   end
 
+  def count
+    current = @queue.length
+    puts "\n\t\tThe queue currently has #{current} items in it."
+    return current
+  end
+
+  def clear
+    @queue = []
+    puts "\n\t\tThe queue was successfully cleared."
+    @queue
+  end
+
   def find
     if @parts[1] == nil || @parts[2] == nil
-      puts "\nPlease enter a column and criteria to find by. Type 'help find' for help."
+      puts "\n\t\tPlease enter a column and criteria to find by. Type 'help find' for help."
     else
       column = @parts[1].downcase.to_sym
       criteria = @parts[2..-1].join(" ").downcase
@@ -110,7 +111,7 @@ class EventReporter
           end
         end
       end
-      puts "\nFound #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
+      puts "\n\t\tFound #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
       return 0 if count == 0
     end
   end
@@ -125,29 +126,21 @@ class EventReporter
     end
   end
 
-  def count
-    current = @queue.length
-    puts "\n\t\tThe queue currently has #{current} items in it."
-    current
-  end
-
-  def clear
-    @queue = []
-    puts "\n\t\tThe queue was successfully cleared."
-    @queue
-  end
-
 #create a class for these
   def print
-    @queue.each do |item|
-      puts "#{item}"
-    end
-    if count == 0
-      puts "\nPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
-      return ''
+    if @parts[2] == "by"
+      print_by
     else
-      puts "\nSuccessfully printed #{count} queue items."
-      return "successfully printed #{count} queue items"
+      @queue.each do |item|
+        puts "#{item}"
+      end
+      if count == 0
+        puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
+        return ''
+      else
+        puts "\n\t\tSuccessfully printed #{count} queue items."
+        return "successfully printed #{count} queue items"
+      end
     end
   end
 
@@ -157,11 +150,20 @@ class EventReporter
       puts "#{item}"
     end
     if count == 0
-      puts "\nPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
+      puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
       return ''
     else
-      puts "\nSuccessfully printed #{count} queue items by #{@parts[3]}."
+      puts "\n\t\tSuccessfully printed #{count} queue items by #{@parts[3]}."
       return "successfully printed #{count} queue items by #{@parts[3]}"
+    end
+  end
+
+  def save
+    saver = Saver.new
+    if @parts[2].nil?
+      puts "\n\t\tPlease enter a filename to save to. Type 'help queue save' for more information."
+    else
+      saver.save(@parts[2], @queue)
     end
   end
 

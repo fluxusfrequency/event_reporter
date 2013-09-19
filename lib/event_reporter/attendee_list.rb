@@ -1,5 +1,4 @@
 require_relative 'loader'
-require 'pry'
 
 class AttendeeList
   attr_reader :list
