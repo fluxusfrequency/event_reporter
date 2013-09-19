@@ -27,15 +27,16 @@ class SavingTest < MiniTest::Test
   end
 
   def test_responds_to_queue_save_to_filename
-    skip
-    cityfile = File.open('city_sample.csv', r)
-    assert_equal cityfile.read, reporter.queue_save_to('city_sample.csv')
+    reporter.parse_input("find city Salt Lake City")
+    reporter.parse_input("queue save city_sample.csv")
+    cityfile = File.open('city_sample.csv', "r")
+    assert_equal "id,regdate,first_name,last_name,email_address,homephone,street,city,state,zipcode", cityfile.gets.chomp
   end
 
   def test_opens_the_CSV_file_and_inspects_headers
     skip
-    cityfile = File.open('city_sample.csv', r)
-    assert_equal cityfile.read, reporter.inspect_headers('city_sample.csv')
+    cityfile = File.open('../city_sample.csv', r)
+    assert_equal cityfile.read, reporter.inspect_headers('../city_sample.csv')
   end
 
   def test_responds_to_find_by_state

@@ -1,6 +1,6 @@
-=begin
 require 'minitest'
 require 'minitest/autorun'
+require 'minitest/pride'
 require_relative '../lib/event_reporter.rb'
 
 class ReadingTest < MiniTest::Test
@@ -8,11 +8,11 @@ class ReadingTest < MiniTest::Test
 
   def setup
     @reporter = EventReporter.new
+    reporter.parse_input("load")
   end
 
   def test_responds_to_load_filename
-    skip
-    assert_equal 'Successfully loaded event_attendees.csv.', reporter.load("event_attendees.csv")
+    assert_equal 'successfully loaded event_attendees.csv', reporter.parse_input("load")
   end
 
   def test_responds_to_find_by_state
@@ -42,4 +42,3 @@ class ReadingTest < MiniTest::Test
   end
 
 end
-=end

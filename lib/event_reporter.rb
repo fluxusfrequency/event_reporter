@@ -15,12 +15,14 @@ require_relative 'event_reporter/attendee'
 require_relative 'event_reporter/attendee_list'
 require_relative 'event_reporter/helper'
 require_relative 'event_reporter/loader'
+require_relative 'event_reporter/saver'
 
 class EventReporter
   attr_accessor :helper, :loader
 
   def initialize
     @loader = Loader.new
+    @saver = Saver.new
     @parts = []
     @queue = []
     @list = []
@@ -89,6 +91,15 @@ class EventReporter
         else
           print
         end
+      when "save"
+        if @parts[2].nil?
+          puts "Please enter a filename to save to. Type 'help queue save' for more information."
+        else
+          #create an array of data from each attendee in the queue
+          #pass the data to the saver object and call save on it
+          #creating a new row between each piece of data
+          @saver.save(@parts[2], @queue)
+        end
       else command_error
     end
   end
@@ -128,6 +139,7 @@ class EventReporter
     @queue = []
   end
 
+#create a class for these
   def print
     @queue.each do |item|
       puts "#{item}"
