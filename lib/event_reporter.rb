@@ -47,7 +47,7 @@ class EventReporter
   def parse_command(command)
     case command
       when "load" then load
-      when "queue" then queue
+      when "queue" then queue_command
       when "find" then find
       when "help" then help
       when "quit"
@@ -73,7 +73,7 @@ class EventReporter
     @list = AttendeeList.new(data).list
   end
 
-  def queue
+  def queue_command
     case @parts[1]
       when "count" then count
       when "clear" then clear
@@ -117,7 +117,7 @@ class EventReporter
     if @parts[1] == nil || @parts[2] == nil
       @printer.print_error_for(find)
     else
-      clear
+      @queue = []
       column = @parts[1].downcase.to_sym
       criteria = @parts[2..-1].join(" ").downcase
       @list.each do |attendee|
@@ -127,8 +127,8 @@ class EventReporter
           end
         end
       end
-      puts "\n\t\tFound #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
-      return 0 if count == 0
+      puts "\n\t\tFound #{@queue.length} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
+      return 0 if @queue.length == 0
     end
   end
 
