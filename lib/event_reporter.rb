@@ -99,6 +99,24 @@ class EventReporter
     @queue
   end
 
+  def print
+    printer = Printer.new
+    if @parts[2] == "by"
+      printer.print_by(@queue, @parts[3])
+    else
+      printer.print(@queue)
+    end
+  end
+
+  def save
+    saver = Saver.new
+    if @parts[2].nil?
+      puts "\n\t\tPlease enter a filename to save to. Type 'help queue save' for more information."
+    else
+      saver.save(@parts[2], @queue)
+    end
+  end
+
   def find
     if @parts[1] == nil || @parts[2] == nil
       puts "\n\t\tPlease enter a column and criteria to find by. Type 'help find' for help."
@@ -124,56 +142,6 @@ class EventReporter
       when "find" then helper.help_for_find
       when "load" then helper.help_for_load
       else helper.help_summary
-    end
-  end
-
-  def print
-    printer = Printer.new
-    if @parts[2] == "by"
-      printer.print_by(@queue, @parts[3])
-    else
-      printer.print(@queue)
-    end
-  end
-
-#create a class for these
-  # def print
-  #   if @parts[2] == "by"
-  #     printer.print_by
-  #   else
-  #     @queue.each do |item|
-  #       puts "#{item}"
-  #     end
-  #     if count == 0
-  #       puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
-  #       return ''
-  #     else
-  #       puts "\n\t\tSuccessfully printed #{count} queue items."
-  #       return "successfully printed #{count} queue items"
-  #     end
-  #   end
-  # end
-
-  # def print_by(queue)
-  #   @queue = @queue.sort_by {|attendee| attendee[@parts[3].downcase.to_sym]}
-  #   @queue.each do |item|
-  #     puts "#{item}"
-  #   end
-  #   if count == 0
-  #     puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
-  #     return ''
-  #   else
-  #     puts "\n\t\tSuccessfully printed #{count} queue items by #{@parts[3]}."
-  #     return "successfully printed #{count} queue items by #{@parts[3]}"
-  #   end
-  # end
-
-  def save
-    saver = Saver.new
-    if @parts[2].nil?
-      puts "\n\t\tPlease enter a filename to save to. Type 'help queue save' for more information."
-    else
-      saver.save(@parts[2], @queue)
     end
   end
 

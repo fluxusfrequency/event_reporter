@@ -1,8 +1,13 @@
 require 'csv'
+require 'pry'
 
 class Saver
 
   def save(filename, data)
+    if File.exists?(filename)
+      File.delete(filename)
+    end
+
     file = CSV.open(filename, "w") do |row|
       row << %w(id regdate first_name last_name email_address homephone street city state zipcode)
       data.each do |attendee|
