@@ -36,7 +36,7 @@ class PrintingTest < MiniTest::Test
 
   def test_responds_to_queue_print_by_last_name
     reporter.parse_input("find first_name Mary")
-    assert_equal "successfully printed by last name", reporter.parse_input("queue print by last_name")
+    assert_equal "successfully printed 16 queue items by last_name", reporter.parse_input("queue print by last_name")
     assert_equal 16, reporter.parse_input("queue count")
   end
 
