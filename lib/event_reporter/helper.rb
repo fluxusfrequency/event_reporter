@@ -42,9 +42,10 @@ class Helper
     puts "\n\t\tEvent Reporter helps analyze data in csv files that contain contact
     \t\tinformation such as names, addresses, and phone numbers. To get started,
     \t\tuse the 'load' command to load a csv file. Then, use 'find' to sort data by
-    \t\ta column name from the CSV (such as: 'first_name'). The found data will be
-    \t\tstored in a 'queue'. You can access and perform operations on the queue using
-    \t\tthe 'queue' command.\n\n"
+    \t\ta column name from the CSV (such as: 'first_name'). To figure out the valid
+    \t\tsearch terms, read the headers in the CSV file you want to search. The found
+    \t\tdata will be stored in a 'queue'. You can access and perform operations on the
+    \t\tqueue using the 'queue' command.\n\n"
 
 
     puts "\n\t\t*** Commands ***\n\n"
