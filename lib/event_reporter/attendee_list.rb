@@ -1,6 +1,6 @@
 require_relative 'loader'
 require_relative 'zipcode'
-require_relative 'phone_number'
+require_relative 'phone'
 
 class AttendeeList
   attr_reader :list

@@ -29,7 +29,7 @@ class ReadingTest < MiniTest::Test
     reporter.parse_input("queue save state_sample.csv")
     statefile = File.open("state_sample.csv", "r")
     assert_equal "id,regdate,first_name,last_name,email_address,homephone,street,city,state,zipcode", statefile.gets.chomp
-    assert_equal "7,11/12/08 16:05,Mary kate,Curry,wmppydaymaker@jumpstartlab.com,\"\",1509 Jackson Street,Baltimore,MD,21230", statefile.gets.chomp
+    assert_equal "7,11/12/08 16:05,Mary kate,Curry,wmppydaymaker@jumpstartlab.com,2023281000,1509 Jackson Street,Baltimore,MD,21230", statefile.gets.chomp
   end
 
   def test_quit_command
