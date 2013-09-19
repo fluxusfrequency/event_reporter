@@ -5,13 +5,13 @@ class AttendeeList
 
   def initialize(file)
     @loader = Loader.new
-    @attendees = @loader.load_file(file)
+    @data = @loader.load_file(file)
     @list = []
     populate_list
   end
 
   def populate_list
-    @list = @attendees.collect do |row|
+    @list = @data.collect do |row|
       attendee = {
         :id => row[0],
         :reg_date => row[:regdate],
