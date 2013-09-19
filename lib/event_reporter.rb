@@ -54,6 +54,7 @@ class EventReporter
       when "help" then help
       when "quit"
         puts "Goodbye! Event Reporter is shutting down."
+        return "Goodbye! Event Reporter is shutting down."
       else
         command_error
     end

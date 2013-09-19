@@ -29,8 +29,7 @@ class ReadingTest < MiniTest::Test
   end
 
   def test_quit_command
-    skip
-    assert_equal 'Goodbye!', reporter.quit
+    assert_equal "Goodbye! Event Reporter is shutting down.", reporter.parse_input("quit")
   end
 
   def test_responds_to_load_filename_after_saving
