@@ -33,15 +33,9 @@ class SavingTest < MiniTest::Test
     assert_equal "id,regdate,first_name,last_name,email_address,homephone,street,city,state,zipcode", cityfile.gets.chomp
   end
 
-  def test_opens_the_CSV_file_and_inspects_headers
-    skip
-    cityfile = File.open('../city_sample.csv', r)
-    assert_equal cityfile.read, reporter.inspect_headers('../city_sample.csv')
-  end
-
   def test_responds_to_find_by_state
-    skip
-    assert_equal "DC", reporter.find("state", "DC")
+    reporter.parse_input("find state DC")
+    assert_equal 236, reporter.parse_input("queue count")
   end
 
   def test_responds_to_queue_print_by_last_name
