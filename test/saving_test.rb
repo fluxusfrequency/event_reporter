@@ -39,8 +39,8 @@ class SavingTest < MiniTest::Test
   end
 
   def test_responds_to_queue_print_by_last_name
-    skip
-    assert_equal '', reporter.queue_print(last_name)
+    reporter.parse_input("find state DC")
+    assert_equal "successfully printed 236 queue items by last_name", reporter.parse_input("queue print by last_name")
   end
 
   def test_responds_to_queue_save

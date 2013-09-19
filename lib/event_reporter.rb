@@ -153,8 +153,8 @@ class EventReporter
     @queue.each do |item|
       puts "#{item}"
     end
-    puts "\nSuccessfully printed queue by #{@parts[3]}."
-    return "successfully printed by last name"
+    puts "\nSuccessfully printed #{count} queue items by #{@parts[3]}."
+    return "successfully printed #{count} queue items by #{@parts[3]}"
   end
 
 end
