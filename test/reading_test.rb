@@ -1,3 +1,5 @@
+require 'pry'
+
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -8,19 +10,21 @@ class ReadingTest < MiniTest::Test
 
   def setup
     @reporter = EventReporter.new
-    reporter.parse_input("load")
   end
 
   def test_responds_to_load_filename
+    reporter.parse_input("load")
     assert_equal 'successfully loaded event_attendees.csv', reporter.parse_input("load")
   end
 
   def test_responds_to_find_by_state
+    reporter.parse_input("load")
     reporter.parse_input("find state MD")
     assert_equal 294, reporter.parse_input("queue count")
   end
 
   def test_responds_to_queue_save
+    reporter.parse_input("load")
     reporter.parse_input("find state MD")
     reporter.parse_input("queue save state_sample.csv")
     statefile = File.open("state_sample.csv", "r")
@@ -33,10 +37,12 @@ class ReadingTest < MiniTest::Test
   end
 
   def test_responds_to_load_filename_after_saving
+    reporter.parse_input("load state_sample.csv")
     assert_equal 'successfully loaded state_sample.csv', reporter.parse_input("load state_sample.csv")
   end
 
   def test_responds_to_find_by_first_name
+    reporter.parse_input("load state_sample.csv")
     assert_equal 'successfully loaded state_sample.csv', reporter.parse_input("load state_sample.csv")
     reporter.parse_input("find first_name John")
     assert_equal 4, reporter.parse_input("queue count")

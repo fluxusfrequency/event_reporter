@@ -16,21 +16,19 @@ require_relative 'event_reporter/loader'
 require_relative 'event_reporter/saver'
 
 class EventReporter
-  # attr_accessor :loader
 
   def initialize
-    # @loader = Loader.new
-    @saver = Saver.new
     @parts = []
     @queue = []
     @list = []
   end
 
   def run
-    puts "
-            Welcome to Event Reporter. Event Reporter helps analyze data in csv files that contain contact
-            information such as names, addresses, and phone numbers. For more information, please type help.
-    "
+    puts "\n\t\tWelcome to Event Reporter. Event Reporter
+    \t\thelps analyze data in csv files that contain contact
+    \t\tinformation such as names, addresses, and phone numbers.
+    \t\tFor more information, please type help."
+
     input = ""
     until input == "quit"
       printf "\n Enter command: "
@@ -51,7 +49,7 @@ class EventReporter
       when "find" then find
       when "help" then help
       when "quit"
-        puts "Goodbye! Event Reporter is shutting down."
+        puts "\n\t\tGoodbye! Event Reporter is shutting down.\n\n"
         return "Goodbye! Event Reporter is shutting down."
       else
         command_error
@@ -59,7 +57,8 @@ class EventReporter
   end
 
   def command_error
-    puts "You have entered an unknown command. Please type 'help' for assistance."
+    puts "\n\t\tSorry, EventReporter couldn't recognize your command.
+    \t\tPlease type 'help' if you need assistance."
   end
 
   def load
@@ -68,7 +67,7 @@ class EventReporter
       @parts[1] = "event_attendees.csv"
     end
     loader.load_file(@parts[1])
-    puts "\n Successfully loaded #{@parts[1]}.\n"
+    puts "\n\t\tSuccessfully loaded #{@parts[1]}.\n"
     build_attendee_list(@parts[1])
     return "successfully loaded #{@parts[1]}"
   end
@@ -79,13 +78,8 @@ class EventReporter
 
   def queue
     case @parts[1]
-      when "count"
-        puts "\nThe queue currently has #{count} items in it."
-        return count
-      when "clear"
-        clear
-        puts "\n The queue was cleared."
-        return @queue
+      when "count" then count
+      when "clear" then clear
       when "print"
         if @parts[2] == "by"
           print_by
@@ -93,13 +87,11 @@ class EventReporter
           print
         end
       when "save"
+        saver = Saver.new
         if @parts[2].nil?
-          puts "Please enter a filename to save to. Type 'help queue save' for more information."
+          puts "\n\t\tPlease enter a filename to save to. Type 'help queue save' for more information."
         else
-          #create an array of data from each attendee in the queue
-          #pass the data to the saver object and call save on it
-          #creating a new row between each piece of data
-          @saver.save(@parts[2], @queue)
+          saver.save(@parts[2], @queue)
         end
       else command_error
     end
@@ -134,11 +126,15 @@ class EventReporter
   end
 
   def count
-    @queue.length
+    current = @queue.length
+    puts "\n\t\tThe queue currently has #{current} items in it."
+    current
   end
 
   def clear
     @queue = []
+    puts "\n\t\tThe queue was successfully cleared."
+    @queue
   end
 
 #create a class for these
