@@ -14,6 +14,7 @@ require_relative 'event_reporter/attendee_list'
 require_relative 'event_reporter/helper'
 require_relative 'event_reporter/loader'
 require_relative 'event_reporter/saver'
+require_relative 'event_reporter/printer'
 
 class EventReporter
 
@@ -126,37 +127,46 @@ class EventReporter
     end
   end
 
-#create a class for these
   def print
+    printer = Printer.new
     if @parts[2] == "by"
-      print_by
+      printer.print_by(@queue, @parts[3])
     else
-      @queue.each do |item|
-        puts "#{item}"
-      end
-      if count == 0
-        puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
-        return ''
-      else
-        puts "\n\t\tSuccessfully printed #{count} queue items."
-        return "successfully printed #{count} queue items"
-      end
+      printer.print(@queue)
     end
   end
 
-  def print_by
-    @queue = @queue.sort_by {|attendee| attendee[@parts[3].downcase.to_sym]}
-    @queue.each do |item|
-      puts "#{item}"
-    end
-    if count == 0
-      puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
-      return ''
-    else
-      puts "\n\t\tSuccessfully printed #{count} queue items by #{@parts[3]}."
-      return "successfully printed #{count} queue items by #{@parts[3]}"
-    end
-  end
+#create a class for these
+  # def print
+  #   if @parts[2] == "by"
+  #     printer.print_by
+  #   else
+  #     @queue.each do |item|
+  #       puts "#{item}"
+  #     end
+  #     if count == 0
+  #       puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
+  #       return ''
+  #     else
+  #       puts "\n\t\tSuccessfully printed #{count} queue items."
+  #       return "successfully printed #{count} queue items"
+  #     end
+  #   end
+  # end
+
+  # def print_by(queue)
+  #   @queue = @queue.sort_by {|attendee| attendee[@parts[3].downcase.to_sym]}
+  #   @queue.each do |item|
+  #     puts "#{item}"
+  #   end
+  #   if count == 0
+  #     puts "\n\t\tPrint was unsuccessful because the queue was empty. Try running a 'find' command first."
+  #     return ''
+  #   else
+  #     puts "\n\t\tSuccessfully printed #{count} queue items by #{@parts[3]}."
+  #     return "successfully printed #{count} queue items by #{@parts[3]}"
+  #   end
+  # end
 
   def save
     saver = Saver.new

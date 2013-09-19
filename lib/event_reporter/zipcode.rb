@@ -11,7 +11,6 @@ class Zipcode
       if @zipcode.length != 5
         @zipcode = "00000"
       end
-
       return @zipcode
     end
   end
