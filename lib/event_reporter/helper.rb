@@ -1,15 +1,16 @@
 class Helper
 
   def help_for_load
-    puts "\n\t\t*** Load Help ***\n\n"
-    puts "\n\t\tload <filename.csv>: loads the specified file into EventReporter.\n"
+    puts "\n\t\t*** Load Help ***\n\n
+    \n\t\tload <filename.csv>: loads the specified file into EventReporter.\n"
   end
 
   def help_for_find
     puts "\n\t\tq*** Find Help ***\n\n"
     puts "\n\t\tfind <column> <criteria>: searches the loaded csv file for all rows
-    \t\tmatching the given column and adds them to the queue if they match the criteria.\n"
-    puts "\n\t\tTypical column names found in csv files include first_name, last_name, phone_number, email_address, city, and state."
+          \t\tmatching the given column and adds them to the queue if they match the criteria.
+          \t\tThe columns found in the defaul csv file include id, reg_date, first_name, last_name,
+          \t\temail, phone, street, city, state, and zipcode.\n\n"
   end
 
 
