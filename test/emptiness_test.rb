@@ -27,8 +27,9 @@ class EmptinessTest < MiniTest::Test
   end
 
   def test_responds_to_queue_save_an_empty_file
-    skip
-    assert_equal '', reporter.queue_save('empty.csv')
+    reporter.parse_input("queue save empty.csv")
+    emptyfile = File.open('empty.csv', "r")
+    assert_equal "id,regdate,first_name,last_name,email_address,homephone,street,city,state,zipcode", emptyfile.gets.chomp
   end
 
   def test_opens_an_empty_CSV_file_and_inspects_headers
