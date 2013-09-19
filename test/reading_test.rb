@@ -1,5 +1,3 @@
-require 'pry'
-
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -10,6 +8,7 @@ class ReadingTest < MiniTest::Test
 
   def setup
     @reporter = EventReporter.new
+    reporter.parse_input("load")
   end
 
   def test_responds_to_load_filename

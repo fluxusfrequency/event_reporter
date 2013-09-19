@@ -1,14 +1,5 @@
 class Helper
 
-  def help_parse
-    case @parts[1]
-      when "queue" then help_for_queue(@parts[2])
-      when "find" then help_for_find
-      when "load" then help_for_load
-      else help_summary
-    end
-  end
-
   def help_for_load
     puts "\n\t\t*** Load Help ***\n\n"
     puts "\n\t\tload <filename.csv>: loads the specified file into EventReporter.\n"
