@@ -19,6 +19,7 @@ require_relative 'event_reporter/printer'
 class EventReporter
 
   def initialize
+    @printer = Printer.new
     @parts = []
     @queue = []
     @list = []
@@ -53,13 +54,8 @@ class EventReporter
         puts "\n\t\tGoodbye! Event Reporter is shutting down.\n\n"
         return "Goodbye! Event Reporter is shutting down."
       else
-        command_error
+        @printer.command_error
     end
-  end
-
-  def command_error
-    puts "\n\t\tSorry, EventReporter couldn't recognize your command.
-    \t\tPlease type 'help' if you need assistance."
   end
 
   def load
@@ -83,7 +79,7 @@ class EventReporter
       when "clear" then clear
       when "print" then print
       when "save" then save
-      else command_error
+      else @printer.command_error
     end
   end
 
@@ -100,11 +96,10 @@ class EventReporter
   end
 
   def print
-    printer = Printer.new
     if @parts[2] == "by"
-      printer.print_by(@queue, @parts[3])
+      @printer.print_by(@queue, @parts[3])
     else
-      printer.print(@queue)
+      @printer.print(@queue)
     end
   end
 

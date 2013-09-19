@@ -49,4 +49,17 @@ class Printer
     end
   end
 
+  # def print_error_for(command)
+  #   case command
+  #     when ""
+  #     when ""
+  #     when ""
+  #     else
+  # end
+
+  def command_error
+    puts "\n\t\tSorry, EventReporter couldn't recognize your command.
+    \t\tPlease type 'help' if you need assistance."
+  end
+
 end
