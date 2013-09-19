@@ -49,13 +49,18 @@ class Printer
     end
   end
 
-  # def print_error_for(command)
-  #   case command
-  #     when ""
-  #     when ""
-  #     when ""
-  #     else
-  # end
+  def print_error_for(command)
+    case command
+      when ""
+
+      when "save"
+        puts "\n\t\tPlease enter a filename to save to. Type 'help queue save' for more information."
+      when "find"
+        puts "\n\t\tPlease enter a column and criteria to find by. Type 'help find' for help."
+      else
+        command_error
+    end
+  end
 
   def command_error
     puts "\n\t\tSorry, EventReporter couldn't recognize your command.

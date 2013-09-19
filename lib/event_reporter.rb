@@ -106,7 +106,7 @@ class EventReporter
   def save
     saver = Saver.new
     if @parts[2].nil?
-      puts "\n\t\tPlease enter a filename to save to. Type 'help queue save' for more information."
+      printer.print_error_for(save)
     else
       saver.delete_if_there(@parts[2])
       saver.save(@parts[2], @queue)
@@ -115,7 +115,7 @@ class EventReporter
 
   def find
     if @parts[1] == nil || @parts[2] == nil
-      puts "\n\t\tPlease enter a column and criteria to find by. Type 'help find' for help."
+      @printer.print_error_for(find)
     else
       clear
       column = @parts[1].downcase.to_sym
