@@ -10,18 +10,16 @@
 #
 ###################
 
-require 'pry'
-require_relative 'event_reporter/attendee'
 require_relative 'event_reporter/attendee_list'
 require_relative 'event_reporter/helper'
 require_relative 'event_reporter/loader'
 require_relative 'event_reporter/saver'
 
 class EventReporter
-  attr_accessor :helper, :loader
+  # attr_accessor :loader
 
   def initialize
-    @loader = Loader.new
+    # @loader = Loader.new
     @saver = Saver.new
     @parts = []
     @queue = []
@@ -65,6 +63,7 @@ class EventReporter
   end
 
   def load
+    loader = Loader.new
     if @parts[1].nil?
       @parts[1] = "event_attendees.csv"
     end
@@ -125,12 +124,12 @@ class EventReporter
   end
 
   def help
-    @helper = Helper.new
+    helper = Helper.new
     case @parts[1]
-      when "queue" then @helper.help_for_queue(@parts[2])
-      when "find" then @helper.help_for_find
-      when "load" then @helper.help_for_load
-      else @helper.help_summary
+      when "queue" then helper.help_for_queue(@parts[2])
+      when "find" then helper.help_for_find
+      when "load" then helper.help_for_load
+      else helper.help_summary
     end
   end
 
