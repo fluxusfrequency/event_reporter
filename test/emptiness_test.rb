@@ -14,6 +14,10 @@ class EmptinessTest < MiniTest::Test
     assert_equal 0, reporter.parse_input("find last_name Johnson")
   end
 
+  def test_queue_count_returns_0
+    assert_equal 0, reporter.parse_input("queue count")
+  end
+
   def test_prints_nothing_on_queue_print_when_queue_is_empty
     assert_equal '', reporter.parse_input("queue print")
   end
@@ -33,15 +37,12 @@ class EmptinessTest < MiniTest::Test
     assert_equal nil, emptyfile.gets
   end
 
-  def test_opens_an_empty_CSV_file_and_inspects_headers
-    skip
-    cityfile = File.open('empty.csv', "r")
-    assert_equal cityfile.read, reporter.inspect_headers('empty.csv')
-  end
-
   def test_queue_count_defaults_to_zero_after_emptiness_tests
-    skip
-    assert_equal 0, queue_count
+    reporter.parse_input("queue save empty.csv")
+    emptyfile = File.open('empty.csv', "r")
+    assert_equal "id,regdate,first_name,last_name,email_address,homephone,street,city,state,zipcode", emptyfile.gets.chomp
+    assert_equal nil, emptyfile.gets
+    assert_equal 0, reporter.parse_input("queue count")
   end
 
 end
