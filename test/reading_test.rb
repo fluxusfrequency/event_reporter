@@ -16,8 +16,8 @@ class ReadingTest < MiniTest::Test
   end
 
   def test_responds_to_find_by_state
-    skip
-    assert_equal "MD", reporter.find("state", "MD")
+    reporter.parse_input("find state MD")
+    assert_equal 294, reporter.parse_input("queue count")
   end
 
   def test_responds_to_queue_save
