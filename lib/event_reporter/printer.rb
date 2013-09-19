@@ -1,8 +1,4 @@
-require 'pry'
-
 class Printer
-  # def initialize
-  # end
 
   def print(queue)
     create_tabs
