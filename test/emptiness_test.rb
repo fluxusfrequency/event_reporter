@@ -15,8 +15,7 @@ class EmptinessTest < MiniTest::Test
   end
 
   def test_prints_nothing_on_queue_print_when_queue_is_empty
-    skip
-    assert_equal '', reporter.queue_print
+    assert_equal '', reporter.parse_input("queue print")
   end
 
   def test_responds_to_queue_clear_without_an_arror
