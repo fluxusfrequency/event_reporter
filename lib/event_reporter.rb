@@ -119,6 +119,7 @@ class EventReporter
         end
       end
       puts "\nFound #{count} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
+      return 0 if count == 0
     end
   end
 
