@@ -2,7 +2,7 @@ require 'csv'
 
 class Saver
 
-  def delete_if_there(filename)
+  def delete_if_exists(filename)
     if File.exists?(filename)
       File.delete(filename)
     end
@@ -16,7 +16,7 @@ class Saver
       end
     end
 
-    puts "\n\t\tThe queue was saved to #{filename}"
+    return "The queue was saved to #{filename}."
   end
 
 end

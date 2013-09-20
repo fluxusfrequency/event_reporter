@@ -57,7 +57,7 @@ class EventReporter
       when "quit"
         say @printer.goodbye_message
       else
-        @printer.command_error
+        say @printer.command_error
     end
   end
 
@@ -88,7 +88,7 @@ class EventReporter
       when "clear" then clear
       when "print" then print
       when "save" then save
-      else @printer.command_error
+      else say @printer.command_error
     end
   end
 
@@ -106,9 +106,9 @@ class EventReporter
 
   def print
     if @parts[2] == "by"
-      @printer.print_by(@queue, @parts[3])
+      say @printer.print_by(@queue, @parts[3])
     else
-      @printer.print(@queue)
+      say @printer.print(@queue)
     end
   end
 
@@ -117,14 +117,14 @@ class EventReporter
     if @parts[2].nil?
       printer.print_error_for(save)
     else
-      saver.delete_if_there(@parts[2])
-      saver.save(@parts[2], @queue)
+      saver.delete_if_exists(@parts[2])
+      say saver.save(@parts[2], @queue)
     end
   end
 
   def find
     if @parts[1] == nil || @parts[2] == nil
-      @printer.print_error_for(find)
+      say @printer.print_error_for(find)
     else
       @queue = []
       column = @parts[1].downcase.to_sym
