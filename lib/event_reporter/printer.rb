@@ -26,15 +26,21 @@ class Printer
     return "--------------------------------------------------------------------------------------------------------------------------------------------\nATTENDEE ID   REG DATE      FIRST NAME    LAST NAME     EMAIL         PHONE         ADDRESS       CITY          STATE         ZIPCODE       \n--------------------------------------------------------------------------------------------------------------------------------------------"
   end
 
+
   def print_lines(queue)
-    ljusted_values = queue.each do |attendee|
-      attendee.values.collect do |value|
-        clean_attendee_values(value)
+    # take each hash out of the queue
+    # and make an attendee
+    # take each value from the attendee
+    # clean it
+    # put it into an array
+    # return each item of the array
+    ljusted_values = []
+    queue.each do |attendee|
+      attendee.values.each do |value|
+        ljusted_values << clean_attendee_value(value)
       end
     end
-    ## I think I broke it. Checkout an older version and fix.
-
-    return "#{ljusted_values}#{successful_print_message(queue.length)}"
+    returned = "#{ljusted_values.join("")}\n#{successful_print_message(queue.length)}"
   end
 
   def clean_attendee_value(value)
