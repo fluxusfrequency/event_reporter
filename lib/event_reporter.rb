@@ -103,8 +103,8 @@ class EventReporter
 
   def clear
     @queue = []
-    puts "\n\t\tThe queue was successfully cleared."
-    @queue
+    say "The queue was successfully cleared."
+    return @queue
   end
 
   def print
@@ -139,7 +139,7 @@ class EventReporter
           end
         end
       end
-      puts "\n\t\tFound #{@queue.length} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
+      say "Found #{@queue.length} #{@parts[1]}(s) matching #{@parts[2..-1].join(" ")}."
       return 0 if @queue.length == 0
     end
   end

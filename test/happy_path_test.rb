@@ -23,11 +23,10 @@ class HappyPathTest < MiniTest::Test
     assert_equal 0, reporter.process_and_execute("queue count")
   end
 
-  # def test_responds_to_find_by_first_name
-  #   reporter.process_and_execute("find first_name John")
-  #   assert_equal 63, reporter.process_and_execute("queue count")
-  #   reporter.process_and_execute("queue print")
-  # end
+  def test_responds_to_find_by_first_name
+    reporter.process_and_execute("find first_name John")
+    assert_equal 63, reporter.process_and_execute("queue count")
+  end
 
   # def test_responds_to_queue_clear
   #   reporter.process_and_execute("queue clear")
