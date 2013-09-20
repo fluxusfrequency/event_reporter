@@ -26,10 +26,7 @@ class Helper
       when "save"
         return help_queue_messages[:save]
       else
-        puts "\n*** Queue Help ***\n\n"
-        help_queue_messages.values.each do |message|
-          puts "#{message}"
-        end
+        return help_default_message
     end
   end
 
@@ -64,5 +61,8 @@ class Helper
     \t\tType 'help <command>' to read more about a specific command."
   end
 
+  def help_default_message
+    return "*** Queue Help ***\n\n#{help_queue_messages.values}"
+  end
 
 end
