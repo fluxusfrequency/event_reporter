@@ -41,7 +41,7 @@ class EventReporter
   end
 
   def clean_input(input)
-    input = input.downcase.strip
+    input = input.to_s.downcase.strip
   end
 
   def parse_input(input)
@@ -53,7 +53,6 @@ class EventReporter
       when "load"
         inspect_file_for_loading
         load(@parts[1])
-        build_attendee_list(@parts[1].to_s)
       when "queue" then queue_command
       when "find" then find
       when "help" then help
@@ -72,9 +71,14 @@ class EventReporter
   end
 
   def load(file)
+    actually_load_file(file)
+    build_attendee_list(@parts[1])
+    say "Successfully loaded #{file}."
+  end
+
+  def actually_load_file(file)
     loader = Loader.new
     loader.load_file(file)
-    say "Successfully loaded #{file}."
   end
 
   def build_attendee_list(data)
