@@ -97,7 +97,7 @@ class EventReporter
 
   def count
     current = @queue.length
-    puts "\n\t\tThe queue currently has #{current} items in it."
+    say "The queue currently has #{current} items in it."
     return current
   end
 
