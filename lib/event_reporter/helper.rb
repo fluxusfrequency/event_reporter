@@ -15,20 +15,16 @@ class Helper
 
 
   def help_for_queue(subcommand = "none")
-    help_queue_messages = { :count => "queue count: Reports the number of records that matched the last search.", :clear => "\n\t\tqueue clear: Clears the search result queue.", :print => "\n\t\tqueue print: Prints a table showing the data in the result queue.", :print_by => "\n\t\tqueue print by <column>: Prints a table sorted by the specified column name.", :save => "\n\t\tqueue save to <filename.csv>: Exports the current queue to the specified filename."}
+    help_queue_messages = { :count => "queue count: Reports the number of records that matched the last search.", :clear => "queue clear: Clears the search result queue.", :print => "queue print: Prints a table showing the data in the result queue.", :print_by => "queue print by <column>: Prints a table sorted by the specified column name.", :save => "queue save to <filename.csv>: Exports the current queue to the specified filename."}
     case subcommand
       when "count"
-        puts help_queue_messages[:count]
-        puts "responded to help queue count"
+        return help_queue_messages[:count]
       when "clear"
-        puts puts help_queue_messages[:clear]
+        return help_queue_messages[:clear]
       when "print"
-        puts help_queue_messages[:print]
-        puts help_queue_messages[:print_by]
-        return "responded to help queue print"
+        return "#{help_queue_messages[:print]}/n#{help_queue_messages[:print_by]}"
       when "save"
-        puts
-        puts help_queue_messages[:save]
+        return help_queue_messages[:save]
       else
         puts "\n*** Queue Help ***\n\n"
         help_queue_messages.values.each do |message|
