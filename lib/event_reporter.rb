@@ -16,12 +16,10 @@ class EventReporter
   end
 
   def run
-    puts "\n\t\tWelcome to Event Reporter. Event Reporter
-    \t\thelps analyze data in csv files that contain contact
-    \t\tinformation such as names, addresses, and phone numbers.
-    \t\tFor more information, please type help."
-
     @verbose = true
+
+    say @printer.welcome_message
+
     input = ""
     until input == "quit"
       printf "\n Enter command: "
@@ -57,8 +55,7 @@ class EventReporter
       when "find" then find
       when "help" then help
       when "quit"
-        puts "\n\t\tGoodbye! Event Reporter is shutting down.\n\n"
-        return "Goodbye! Event Reporter is shutting down."
+        say @printer.goodbye_message
       else
         @printer.command_error
     end

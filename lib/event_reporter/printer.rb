@@ -63,4 +63,15 @@ class Printer
     \t\tPlease type 'help' if you need assistance."
   end
 
+  def welcome_message
+    "Welcome to Event Reporter. Event Reporter
+     \t\thelps analyze data in csv files that contain contact
+     \t\tinformation such as names, addresses, and phone numbers.
+     \t\tFor more information, please type help."
+  end
+
+  def goodbye_message
+    "Goodbye! Event Reporter is shutting down.\n\n"
+  end
+
 end
