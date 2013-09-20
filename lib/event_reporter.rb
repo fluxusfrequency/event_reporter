@@ -147,10 +147,10 @@ class EventReporter
   def help
     helper = Helper.new
     case @parts[1]
-      when "queue" then helper.help_for_queue(@parts[2])
-      when "find" then helper.help_for_find
-      when "load" then helper.help_for_load
-      else helper.help_summary
+      when "queue" then say helper.help_for_queue(@parts[2])
+      when "find" then say helper.help_for_find
+      when "load" then say helper.help_for_load
+      else say helper.summarize_help
     end
   end
 

@@ -28,14 +28,14 @@ class HappyPathTest < MiniTest::Test
     assert_equal 63, reporter.process_and_execute("queue count")
   end
 
-  # def test_responds_to_queue_clear
-  #   reporter.process_and_execute("queue clear")
-  #   assert_equal 0, reporter.process_and_execute("queue count")
-  # end
+  def test_responds_to_queue_clear
+    reporter.process_and_execute("queue clear")
+    assert_equal 0, reporter.process_and_execute("queue count")
+  end
 
-  # def test_responds_to_help
-  #   assert_equal "responded to help", reporter.process_and_execute("help")
-  # end
+  def test_responds_to_help
+    assert_equal summarize_help, reporter.process_and_execute("help")
+  end
 
   # def test_responds_to_help_queue_count_command
   #   assert_equal "responded to help queue count", reporter.process_and_execute("help queue count")
@@ -44,5 +44,9 @@ class HappyPathTest < MiniTest::Test
   # def test_responds_to_help_queue_print_command
   #   assert_equal "responded to help queue print", reporter.process_and_execute("help queue print")
   # end
+
+  def summarize_help
+    "\n\t\t*** EventReporter Help ***\n\n\n    \n\t\tEvent Reporter helps analyze data in csv files that contain contact\n    \t\tinformation such as names, addresses, and phone numbers. To get started,\n    \t\tuse the 'load' command to load a csv file. Then, use 'find' to sort data by\n    \t\ta column name from the CSV (such as: 'first_name'). To figure out the valid\n    \t\tsearch terms, read the headers in the CSV file you want to search. The found\n    \t\tdata will be stored in a 'queue'. You can access and perform operations on the\n    \t\tqueue using the 'queue' command.\n\n\n\t\t*** Commands ***\n\n\n    \n\t\tload <filename.csv>: loads the specified file into EventReporter\n\n\n\t\tfind <column> <criteria>: searches the loaded csv file for all rows \n\t\tmatching the given column and adds them to the queue if they match the criteria\n\n\n\t\tqueue <subcommand>: accesses and manipulates the queue of found data\n\n    Type 'help <command>' to read more about a specific command."
+  end
 
 end
