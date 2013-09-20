@@ -3,6 +3,7 @@ require_relative 'event_reporter/helper'
 require_relative 'event_reporter/loader'
 require_relative 'event_reporter/saver'
 require_relative 'event_reporter/printer'
+require 'pry'
 
 class EventReporter
 
@@ -25,18 +26,22 @@ class EventReporter
     until input == "quit"
       printf "\n Enter command: "
       input = gets.chomp
-      process_input(input)
-      execute_command(@parts[0])
+      process_and_execute(input)
     end
   end
 
+  def process_and_execute(input)
+    process_input(input)
+    execute_command(@parts[0])
+  end
+
   def process_input(input)
-    input = clean_input(input)
+    clean_input(input)
     parse_input(input)
   end
 
   def clean_input(input)
-    input.downcase.strip
+    input = input.downcase.strip
   end
 
   def parse_input(input)
@@ -46,8 +51,9 @@ class EventReporter
   def execute_command(command)
     case command
       when "load"
+        inspect_file_for_loading
         load(@parts[1])
-        build_attendee_list(@parts[1])
+        build_attendee_list(@parts[1].to_s)
       when "queue" then queue_command
       when "find" then find
       when "help" then help
@@ -59,15 +65,16 @@ class EventReporter
     end
   end
 
-  def load(file)
-    if file.nil?
-      file = "event_attendees.csv"
+  def inspect_file_for_loading
+    if @parts[1].nil?
+      @parts[1] = "event_attendees.csv"
     end
+  end
 
+  def load(file)
     loader = Loader.new
     loader.load_file(file)
     say "Successfully loaded #{file}."
-    return "successfully loaded #{file}"
   end
 
   def build_attendee_list(data)
@@ -144,7 +151,8 @@ class EventReporter
   end
 
   def say(string)
-    puts "\n\t\t#{string}" unless @verbose
+    puts "\n\t\t#{string}" if @verbose
+    return "#{string}"
   end
 
 end
