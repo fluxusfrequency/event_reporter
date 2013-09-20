@@ -20,10 +20,10 @@ class SavingTest < MiniTest::Test
     assert_equal 13, reporter.process_and_execute("queue count")
   end
 
-  # def test_responds_to_queue_print
-  #   reporter.process_and_execute("find city Salt Lake City")
-  #   assert_equal "successfully printed 13 queue items", reporter.process_and_execute("queue print")
-  # end
+  def test_responds_to_queue_print
+    reporter.process_and_execute("find city Salt Lake City")
+    assert "#{reporter.process_and_execute("queue print")}".end_with?("Successfully printed 13 queue items.")
+  end
 
   # def test_responds_to_queue_save_to_filename
   #   reporter.process_and_execute("find city Salt Lake City")
