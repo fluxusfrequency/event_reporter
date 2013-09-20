@@ -61,7 +61,7 @@ class Helper
     \t\tType 'help <command>' to read more about a specific command."
   end
 
-  def help_default_message
+  def help_queue_default_message
     return "*** Queue Help ***\n\n#{help_queue_messages.values}"
   end
 
