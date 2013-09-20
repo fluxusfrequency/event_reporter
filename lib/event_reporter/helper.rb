@@ -61,7 +61,7 @@ class Helper
 
     return "\n\t\t*** Commands ***\n\n
     #{command_stack_for_return}
-    Type 'help <command>' to read more about a specific command."
+    \t\tType 'help <command>' to read more about a specific command."
   end
 
 
