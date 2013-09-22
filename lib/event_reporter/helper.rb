@@ -50,11 +50,11 @@ class Helper
   end
 
   def self.help_command_summary
-    help_command_stack = help_command_messages.values
-    command_stack_for_return = help_command_stack.join("\n")
+    help_commands = help_command_messages.values
+    commands_for_return = help_commands.join("\n")
 
     return "\n\t\t*** Commands ***\n\n
-    #{command_stack_for_return}
+    #{commands_for_return}
     \t\tType 'help <command>' to read more about a specific command."
   end
 

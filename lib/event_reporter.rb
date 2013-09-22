@@ -3,7 +3,6 @@ require_relative 'event_reporter/helper'
 require_relative 'event_reporter/loader'
 require_relative 'event_reporter/saver'
 require_relative 'event_reporter/printer'
-require 'pry'
 
 class EventReporter
 
@@ -40,10 +39,6 @@ class EventReporter
   def clean_input(input)
     input.to_s.downcase.strip
   end
-
-  # def parse_input(input)
-  #   @parts =
-  # end
 
   def execute_command(command, args)
     case command
@@ -113,14 +108,6 @@ class EventReporter
     say Printer.successful_clear_message
     return @queue
   end
-
-  # def print
-  #   if @parts[2] == "by"
-
-  #   else
-
-  #   end
-  # end
 
   def save(filename)
     if filename.nil?
