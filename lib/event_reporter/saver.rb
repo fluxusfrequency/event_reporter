@@ -2,13 +2,13 @@ require 'csv'
 
 class Saver
 
-  def delete_if_exists(filename)
+  def self.delete_if_exists(filename)
     if File.exists?(filename)
       File.delete(filename)
     end
   end
 
-  def save(filename, data)
+  def self.save(filename, data)
     file = CSV.open(filename, "w") do |row|
       row << %w(id regdate first_name last_name email_address homephone street city state zipcode)
       data.each do |attendee|

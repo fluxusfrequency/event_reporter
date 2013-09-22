@@ -1,6 +1,6 @@
 class Zipcode
 
-  def clean(zipcode)
+  def self.clean(zipcode)
     if zipcode.nil?
       zipcode = "00000"
     else

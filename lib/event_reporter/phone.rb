@@ -1,6 +1,6 @@
 class Phone
 
-  def clean(phone)
+  def self.clean(phone)
     if phone.nil?
       phone = "0000000000"
     else

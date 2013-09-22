@@ -1,11 +1,11 @@
 class Helper
 
-  def help_for_load
+  def self.help_for_load
     return "*** Load Help ***\n\n
     \n\t\tload <filename.csv>: loads the specified file into EventReporter.\n"
   end
 
-  def help_for_find
+  def self.help_for_find
     return "\n\t\tq*** Find Help ***\n\n
           \n\t\tfind <column> <criteria>: searches the loaded csv file for all rows
           \t\tmatching the given column and adds them to the queue if they match the criteria.
@@ -14,7 +14,7 @@ class Helper
   end
 
 
-  def help_for_queue(subcommand = "none")
+  def self.help_for_queue(subcommand = "none")
     help_queue_messages = { :count => "queue count: Reports the number of records that matched the last search.", :clear => "queue clear: Clears the search result queue.", :print => "queue print: Prints a table showing the data in the result queue.", :print_by => "queue print by <column>: Prints a table sorted by the specified column name.", :save => "queue save to <filename.csv>: Exports the current queue to the specified filename."}
     case subcommand
       when "count"
@@ -30,15 +30,15 @@ class Helper
     end
   end
 
-  def summarize_help
+  def self.summarize_help
     return help_summary + help_command_summary
   end
 
-  def help_command_messages
+  def self.help_command_messages
     { :load => "\n\t\tload <filename.csv>: loads the specified file into EventReporter", :find => "\n\t\tfind <column> <criteria>: searches the loaded csv file for all rows \n\t\tmatching the given column and adds them to the queue if they match the criteria", :queue => "\n\t\tqueue <subcommand>: accesses and manipulates the queue of found data"}
   end
 
-  def help_summary
+  def self.help_summary
     return "\n\t\t*** EventReporter Help ***\n\n
     \n\t\tEvent Reporter helps analyze data in csv files that contain contact
     \t\tinformation such as names, addresses, and phone numbers. To get started,
@@ -49,7 +49,7 @@ class Helper
     \t\tqueue using the 'queue' command.\n\n"
   end
 
-  def help_command_summary
+  def self.help_command_summary
     help_command_stack = help_command_messages.values
     command_stack_for_return = help_command_stack.join("\n")
 
@@ -58,7 +58,7 @@ class Helper
     \t\tType 'help <command>' to read more about a specific command."
   end
 
-  def help_queue_default_message
+  def self.help_queue_default_message
     return "*** Queue Help ***\n\n#{help_queue_messages.values}"
   end
 
