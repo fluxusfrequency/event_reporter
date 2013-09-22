@@ -8,17 +8,17 @@ require 'pry'
 class EventReporter
 
   def initialize
-    @printer = Printer.new
-    @parts = []
+    # Printer = Printer.new
+    # @parts = []
     @queue = []
-    @list = []
+    # @list = []
     @verbose = false
   end
 
   def run
     @verbose = true
 
-    say @printer.welcome_message
+    say Printer.welcome_message
 
     input = ""
     until input == "quit"
@@ -55,9 +55,9 @@ class EventReporter
       when "find" then find
       when "help" then help
       when "quit"
-        say @printer.goodbye_message
+        say Printer.goodbye_message
       else
-        say @printer.command_error
+        say Printer.command_error
     end
   end
 
@@ -88,27 +88,27 @@ class EventReporter
       when "clear" then clear
       when "print" then print
       when "save" then save
-      else say @printer.command_error
+      else say Printer.command_error
     end
   end
 
   def count
     current = @queue.length
-    say "The queue currently has #{current} items in it."
+    say Printer.count_message(current)
     return current
   end
 
   def clear
     @queue = []
-    say "The queue was successfully cleared."
+    say Printer.successful_clear_message
     return @queue
   end
 
   def print
     if @parts[2] == "by"
-      say @printer.print_by(@queue, @parts[3])
+      say Printer.print_by(@queue, @parts[3])
     else
-      say @printer.print(@queue)
+      say Printer.print(@queue)
     end
   end
 
@@ -124,7 +124,7 @@ class EventReporter
 
   def find
     if @parts[1] == nil || @parts[2] == nil
-      say @printer.print_error_for(find)
+      say Printer.print_error_for(find)
     else
       @queue = []
       column = @parts[1].downcase.to_sym
