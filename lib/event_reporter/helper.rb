@@ -50,10 +50,7 @@ class Helper
   end
 
   def help_command_summary
-    help_command_stack = []
-    help_command_messages.values.each do |message|
-      help_command_stack << "#{message}\n"
-    end
+    help_command_stack = help_command_messages.values
     command_stack_for_return = help_command_stack.join("\n")
 
     return "\n\t\t*** Commands ***\n\n
