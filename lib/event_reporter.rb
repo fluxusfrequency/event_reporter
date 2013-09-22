@@ -8,10 +8,7 @@ require 'pry'
 class EventReporter
 
   def initialize
-    # Printer = Printer.new
-    # @parts = []
     @queue = []
-    # @list = []
     @verbose = false
   end
 
@@ -127,6 +124,7 @@ class EventReporter
       say Printer.print_error_for(find)
     else
       @queue = []
+      @list ||= []
       column = @parts[1].downcase.to_sym
       criteria = @parts[2..-1].join(" ").downcase
       @list.each do |attendee|
