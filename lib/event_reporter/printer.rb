@@ -5,7 +5,7 @@ class Printer
       return empty_queue_error_message
     end
 
-    return "#{create_tabs}#{print_lines(queue)}#{successful_print_message(queue.length)}"
+    return create_tabs + print_lines(queue) + successful_print_message(queue.length)
   end
 
   def print_by(queue, param)
@@ -15,7 +15,7 @@ class Printer
 
     param = clean_param_for_sort(param)
     queue = queue.sort_by {|attendee| attendee[param]}
-    return "#{create_tabs}#{print_lines(queue)}#{successful_print_by_message(queue.length, param)}"
+    create_tabs + print_lines(queue) + successful_print_by_message(queue.length, param)
   end
 
   def clean_param_for_sort(param)
@@ -28,19 +28,13 @@ class Printer
 
 
   def print_lines(queue)
-    # take each hash out of the queue
-    # and make an attendee
-    # take each value from the attendee
-    # clean it
-    # put it into an array
-    # return each item of the array
     ljusted_values = []
     queue.each do |attendee|
       attendee.values.each do |value|
         ljusted_values << clean_attendee_value(value)
       end
     end
-    returned = "#{ljusted_values.join("")}\n#{successful_print_message(queue.length)}"
+    ljusted_values.join("") + "\n" + successful_print_message(queue.length)
   end
 
   def clean_attendee_value(value)
