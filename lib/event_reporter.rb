@@ -30,23 +30,9 @@ class EventReporter
     execute_command(command, args)
   end
 
-  def process_input(input)
-    cleaned_input = clean_input(input)
-    cleaned_input.split
-  end
-
-  def clean_input(input)
-    input.to_s.downcase.strip
-  end
-
   def execute_command(command, args)
     case command
-      when "load"
-        args[0] ||= "event_attendees.csv"
-        file = args[0]
-        load(file)
-        build_attendee_list(file)
-        say "Successfully loaded #{file}."
+      when "load" then load_file_and_create_attendee_list(args)
       when "queue" then queue_command(args)
       when "find" then find(args)
       when "help" then help(args)
@@ -62,10 +48,6 @@ class EventReporter
     say "Successfully loaded #{file}."
   end
 
-  def build_attendee_list(data)
-    @list = AttendeeList.new(data).list
-  end
-
   def queue_command(args)
     subcommand = args[0]
     case subcommand
@@ -76,38 +58,6 @@ class EventReporter
         filename = args[1]
         save(filename)
       else say Printer.command_error
-    end
-  end
-
-  def print_or_print_by(args)
-    if args[1] == nil
-      say Printer.print(@queue)
-    elsif args[1] == "by"
-      attribute = args[2]
-      say Printer.print_by(@queue, attribute)
-    else
-      say Printer.command_error
-    end
-  end
-
-  def count
-    current = @queue.length
-    say Printer.count_message(current)
-    return current
-  end
-
-  def clear
-    @queue = []
-    say Printer.successful_clear_message
-    return @queue
-  end
-
-  def save(filename)
-    if filename.nil?
-      say Printer.print_error_for(save)
-    else
-      Saver.delete_if_exists(filename)
-      say Saver.save(filename, @queue)
     end
   end
 
@@ -124,11 +74,12 @@ class EventReporter
     end
   end
 
-  def find_attendee_attributes_by_criteria(attribute, criteria)
-    @list ||= []
-    column = attribute.downcase.to_sym
-    @queue = @list.select do |attendee|
-      attendee[column].to_s.downcase.eql?(criteria.downcase)
+  def save(filename)
+    if filename.nil?
+      say Printer.print_error_for(save)
+    else
+      Saver.delete_if_exists(filename)
+      say Saver.save(filename, @queue)
     end
   end
 
@@ -143,9 +94,63 @@ class EventReporter
     end
   end
 
+  def count
+    current = @queue.length
+    say Printer.count_message(current)
+    return current
+  end
+
+  def clear
+    @queue = []
+    say Printer.successful_clear_message
+    return @queue
+  end
+
+  private
+
+  def process_input(input)
+    cleaned_input = clean_input(input)
+    cleaned_input.split
+  end
+
+  def clean_input(input)
+    input.to_s.downcase.strip
+  end
+
+  def load_file_and_create_attendee_list(args)
+    args[0] ||= "event_attendees.csv"
+    file = args[0]
+    load(file)
+    build_attendee_list(file)
+    say "Successfully loaded #{file}."
+  end
+
+  def print_or_print_by(args)
+    if args[1] == nil
+      say Printer.print(@queue)
+    elsif args[1] == "by"
+      attribute = args[2]
+      say Printer.print_by(@queue, attribute)
+    else
+      say Printer.command_error
+    end
+  end
+
+  def build_attendee_list(data)
+    @list = AttendeeList.new(data).list
+  end
+
   def say(string)
     puts "\n\t\t#{string}" if @verbose
     return "#{string}"
+  end
+
+  def find_attendee_attributes_by_criteria(attribute, criteria)
+    @list ||= []
+    column = attribute.downcase.to_sym
+    @queue = @list.select do |attendee|
+      attendee[column].to_s.downcase.eql?(criteria.downcase)
+    end
   end
 
 end
