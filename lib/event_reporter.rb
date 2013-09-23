@@ -13,7 +13,6 @@ class EventReporter
 
   def run
     @verbose = true
-
     say Printer.welcome_message
 
     input = ""
@@ -33,7 +32,7 @@ class EventReporter
 
   def process_input(input)
     cleaned_input = clean_input(input)
-    split_input = cleaned_input.split
+    cleaned_input.split
   end
 
   def clean_input(input)
@@ -43,8 +42,11 @@ class EventReporter
   def execute_command(command, args)
     case command
       when "load"
-        file = inspect_file_for_loading(args)
+        args[0] ||= "event_attendees.csv"
+        file = args[0]
         load(file)
+        build_attendee_list(file)
+        say "Successfully loaded #{file}."
       when "queue" then queue_command(args)
       when "find" then find(args)
       when "help" then help(args)
@@ -55,18 +57,9 @@ class EventReporter
     end
   end
 
-  def inspect_file_for_loading(args)
-    args[0] ||= "event_attendees.csv"
-  end
-
   def load(file)
-    actually_load_file(file)
-    build_attendee_list(file)
-    say "Successfully loaded #{file}."
-  end
-
-  def actually_load_file(file)
     Loader.load_file(file)
+    say "Successfully loaded #{file}."
   end
 
   def build_attendee_list(data)

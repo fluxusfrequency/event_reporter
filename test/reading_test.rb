@@ -40,6 +40,10 @@ class ReadingTest < MiniTest::Test
   end
 
   def test_responds_to_find_by_first_name
+    reporter.process_and_execute("load")
+    reporter.process_and_execute("find state MD")
+    reporter.process_and_execute("queue save state_sample.csv")
+    statefile = File.open("state_sample.csv", "r")
     assert_equal 'Successfully loaded state_sample.csv.', reporter.process_and_execute("load state_sample.csv")
     reporter.process_and_execute("find first_name John")
     assert_equal 4, reporter.process_and_execute("queue count")
