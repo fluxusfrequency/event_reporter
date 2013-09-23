@@ -114,21 +114,21 @@ class EventReporter
   def find(args)
     attribute = args[0]
     criteria = args[1..-1].join(" ")
-    if attribute == nil || criteria == nil
+    if (attribute || criteria).nil?
       say Printer.print_error_for(find)
     else
       clear
-      @list ||= []
-      column = attribute.downcase.to_sym
-      @list.each do |attendee|
-        unless attendee[column].nil?
-          if attendee[column].downcase == criteria.downcase
-            @queue << attendee
-          end
-        end
-      end
+      find_attendee_attributes_by_criteria(attribute, criteria)
       say "Found #{@queue.length} #{attribute}(s) matching #{criteria}."
-      return 0 if @queue.length == 0
+      return 0 if @queue.length.eql?(0)
+    end
+  end
+
+  def find_attendee_attributes_by_criteria(attribute, criteria)
+    @list ||= []
+    column = attribute.downcase.to_sym
+    @queue = @list.select do |attendee|
+      attendee[column].to_s.downcase.eql?(criteria.downcase)
     end
   end
 
