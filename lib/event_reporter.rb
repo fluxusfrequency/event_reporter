@@ -118,8 +118,8 @@ class EventReporter
   end
 
   def load_file_and_create_attendee_list(args)
-    args[0] ||= "event_attendees.csv"
     file = args[0]
+    file ||= "event_attendees.csv"
     load(file)
     build_attendee_list(file)
     say "Successfully loaded #{file}."
